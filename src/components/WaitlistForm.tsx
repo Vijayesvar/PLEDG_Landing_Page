@@ -44,7 +44,7 @@ export function WaitlistForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: formData.email }),
+        body: JSON.stringify(formData),
       })
 
 
@@ -130,6 +130,7 @@ export function WaitlistForm() {
                 placeholder="₹10,000 - ₹1,00,00,000"
                 icon={<DollarSign size={20} />}
                 label="Desired Loan Amount"
+                required
               />
 
               {/* Term */}
