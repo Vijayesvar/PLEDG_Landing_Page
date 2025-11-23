@@ -21,13 +21,15 @@ export function BitcoinPrice() {
       setError(null)
 
       const WORKER_URL = "https://lucky-wave-c3fe.wolf07279.workers.dev"
-      const response = await axios.get(`${WORKER_URL}?t = ${Date.now()} `)
-      const btcData = response.data.bitcoin.inr
+      const response = await axios.get(`${WORKER_URL}?t=${Date.now()}`)
 
-      const newPriceData = {
-        price: btcData.usd,
-        change24h: 0, // Hardcoded as per instruction
-        changePercentage: 0, // Hardcoded as per instruction
+      // Updated structure based on your Worker response
+      const btc = response.data.bitcoin
+
+      const newPriceData: BitcoinPriceData = {
+        price: btc.inr,
+        change24h: btc.change24h,
+        changePercentage: btc.change24h,
         lastUpdated: new Date()
       }
 
@@ -64,13 +66,17 @@ export function BitcoinPrice() {
     return () => clearInterval(interval)
   }, [])
 
-  const formatPrice = (price: number) => new Intl.NumberFormat('en-IN', {
-    style: 'currency',
-    currency: 'INR',
-    maximumFractionDigits: 0
-  }).format(price)
+  // Format INR price (no decimals)
+  const formatPrice = (price: number) =>
+    new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      maximumFractionDigits: 0
+    }).format(price)
 
-  const formatChange = (change: number) => `${change >= 0 ? '+' : ''}${change.toFixed(2)}% `
+  // Format percentage with 2 decimals
+  const formatChange = (change: number) =>
+    `${change >= 0 ? '+' : ''}${change.toFixed(2)}%`
 
   if (loading && !priceData) {
     return (
@@ -114,6 +120,7 @@ export function BitcoinPrice() {
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
       className="bg-gradient-to-br from-primary-400/10 via-primary-500/5 to-primary-600/10 border-2 border-primary-400/30 rounded-2xl p-6 backdrop-blur-sm shadow-xl">
+
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
@@ -124,27 +131,42 @@ export function BitcoinPrice() {
             <p className="text-sm text-gray-400">Live in INR</p>
           </div>
         </div>
-        <button onClick={fetchBitcoinPrice} disabled={loading}
-          className="p-2 hover:bg-white/10 rounded-lg transition-colors disabled:opacity-50">
-          <RefreshCw className={`h - 4 w - 4 text - gray - 400 ${loading ? 'animate-spin' : ''} `} />
+        <button
+          onClick={fetchBitcoinPrice}
+          disabled={loading}
+          className="p-2 hover:bg-white/10 rounded-lg transition-colors disabled:opacity-50"
+        >
+          <RefreshCw className={`h-4 w-4 text-gray-400 ${loading ? 'animate-spin' : ''}`} />
         </button>
       </div>
 
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold text-white">{formatPrice(priceData.price)}</span>
-          <div className={`flex items - center gap - 1 px - 3 py - 1 rounded - full ${isPositive ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'} `}>
+          <span className="text-2xl font-bold text-white">
+            {formatPrice(priceData.price)}
+          </span>
+
+          <div className={`flex items-center gap-1 px-3 py-1 rounded-full ${
+            isPositive ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+          }`}>
             {isPositive ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
-            <span className="font-semibold">{formatChange(priceData.changePercentage)}</span>
+            <span className="font-semibold">
+              {formatChange(priceData.changePercentage)}
+            </span>
           </div>
         </div>
+
         <div className="text-xs text-gray-400">
           Last updated: {priceData.lastUpdated.toLocaleTimeString('en-IN')}
         </div>
+
         <div className="pt-3 border-t border-gray-700">
           <p className="text-sm text-gray-300">
             <strong>Your Bitcoin Value:</strong> If you have 1 BTC, it's worth{' '}
-            <span className="text-primary-400 font-semibold">{formatPrice(priceData.price)}</span> today.
+            <span className="text-primary-400 font-semibold">
+              {formatPrice(priceData.price)}
+            </span>{' '}
+            today.
           </p>
         </div>
       </div>
