@@ -48,7 +48,15 @@ export function WaitlistForm() {
       })
 
 
-      const data = await response.json()
+      let data;
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        // If it's not JSON, it's likely a Vercel error page or plain text error
+        throw new Error(text || 'Server error occurred');
+      }
 
       if (!response.ok) {
         throw new Error(data.message || 'Failed to join waitlist')
