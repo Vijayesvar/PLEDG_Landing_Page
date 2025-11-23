@@ -22,7 +22,7 @@ export function BitcoinPrice() {
 
       const WORKER_URL = "https://lucky-wave-c3fe.wolf07279.workers.dev"
       const response = await axios.get(`${WORKER_URL}?t = ${Date.now()} `)
-      const btcData = response.data.bitcoin
+      const btcData = response.data.bitcoin.inr
 
       const newPriceData = {
         price: btcData.usd,
