@@ -25,6 +25,7 @@ export function WaitlistForm() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState<string>('')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -65,9 +66,10 @@ export function WaitlistForm() {
         term: '',
         notes: '',
       })
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error submitting waitlist:', error)
       setSubmitStatus('error')
+      setErrorMessage(error.message || 'Failed to join waitlist')
     } finally {
       setIsSubmitting(false)
     }
@@ -197,7 +199,7 @@ export function WaitlistForm() {
                   className="md:col-span-3 flex items-center gap-2 text-red-400 bg-red-900/20 p-3 rounded-lg border border-red-500/20"
                 >
                   <AlertCircle size={20} />
-                  <span>Something went wrong. Please try again.</span>
+                  <span>{errorMessage || 'Something went wrong. Please try again.'}</span>
                 </motion.div>
               )}
             </form>
