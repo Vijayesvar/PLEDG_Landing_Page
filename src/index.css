@@ -1,0 +1,263 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-black text-white overflow-x-hidden;
+    background: #000000;
+    background-attachment: fixed;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 20%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
+    animation: gradientShift 15s ease infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Smooth scrolling for anchor links */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Respect user's motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600 bg-clip-text text-transparent;
+  }
+
+  .gradient-text-animated {
+    @apply bg-gradient-to-r from-primary-400 via-pink-500 to-primary-600 bg-clip-text text-transparent;
+    background-size: 200% auto;
+    animation: gradientShift 3s ease infinite;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.5),
+                 0 0 40px rgba(139, 92, 246, 0.3);
+  }
+  
+  .card-hover {
+    @apply transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-500/30;
+  }
+
+  .card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .card-3d:hover {
+    transform: translateY(-8px) rotateX(2deg) rotateY(2deg);
+  }
+  
+  .btn-primary {
+    @apply px-6 py-3 bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 rounded-full font-medium hover:shadow-glow-lg transform hover:scale-105 transition-all duration-300 shadow-lg relative overflow-hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+  
+  .btn-secondary {
+    @apply px-6 py-3 border-2 border-primary-400/30 rounded-full font-medium hover:bg-primary-400/10 hover:border-primary-400/60 hover:shadow-glow-sm transition-all duration-300 backdrop-blur-sm;
+  }
+  
+  .btn-neopop {
+    @apply px-8 py-4 bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 rounded-2xl font-semibold text-white shadow-neopop hover:shadow-neopop-lg transform hover:scale-105 transition-all duration-500 relative overflow-hidden;
+  }
+
+  .btn-neopop::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    background-size: 200% 200%;
+    animation: shimmer 3s infinite;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 bg-gray-900/50 border-2 border-gray-700 rounded-xl focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 focus:shadow-glow-sm transition-all duration-300 backdrop-blur-sm;
+  }
+  
+  .input-neopop {
+    @apply w-full px-6 py-4 bg-gray-900/80 border-2 border-primary-400/30 rounded-2xl focus:outline-none focus:border-primary-400 focus:ring-4 focus:ring-primary-400/20 focus:shadow-glow-md transition-all duration-300 backdrop-blur-sm text-white placeholder-gray-400;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+  
+  .container-custom {
+    @apply container mx-auto px-4;
+  }
+  
+  .card-neopop {
+    @apply bg-gradient-to-br from-gray-800/40 to-gray-900/60 border-2 border-primary-400/20 rounded-2xl p-6 backdrop-blur-sm shadow-lg hover:shadow-neopop transition-all duration-500 hover:-translate-y-1 hover:border-primary-400/40;
+  }
+  
+  .card-neopop-glow {
+    @apply bg-gradient-to-br from-primary-400/10 via-primary-500/5 to-blue-500/10 border-2 border-primary-400/30 rounded-2xl p-8 backdrop-blur-sm shadow-2xl hover:shadow-neopop-lg transition-all duration-500 hover:-translate-y-2 hover:border-primary-400/50 relative;
+  }
+
+  .card-neopop-glow::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, #8B5CF6, #EC4899, #06B6D4, #8B5CF6);
+    background-size: 300% 300%;
+    border-radius: 1rem;
+    opacity: 0;
+    transition: opacity 0.5s;
+    animation: gradientShift 6s ease infinite;
+    z-index: -1;
+  }
+
+  .card-neopop-glow:hover::before {
+    opacity: 0.3;
+  }
+  
+  .text-neopop-gradient {
+    @apply bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600 bg-clip-text text-transparent;
+  }
+  
+  .icon-neopop {
+    @apply w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center shadow-glow-sm transition-all duration-300 hover:shadow-glow-md hover:scale-110;
+  }
+  
+  .badge-neopop {
+    @apply px-4 py-2 bg-gradient-to-r from-green-500 to-teal-500 rounded-full text-white text-sm font-semibold shadow-lg;
+  }
+  
+  .badge-neopop-warning {
+    @apply px-4 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full text-white text-sm font-semibold shadow-lg;
+  }
+  
+  .badge-neopop-error {
+    @apply px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 rounded-full text-white text-sm font-semibold shadow-lg;
+  }
+  
+  .glass-neopop {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl;
+  }
+
+  .glass-card {
+    @apply bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg border border-white/20 rounded-2xl shadow-2xl;
+  }
+  
+  .neopop-glow {
+    @apply relative;
+  }
+  
+  .neopop-glow::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-primary-400/20 via-primary-500/20 to-primary-600/20 rounded-2xl blur-xl -z-10;
+  }
+
+  /* Floating particles effect */
+  .particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.4), transparent);
+    animation: float 20s infinite ease-in-out;
+  }
+
+  /* Scroll reveal animations */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .neopop-animate {
+    @apply animate-neopop-bounce;
+  }
+  
+  .neopop-pulse {
+    @apply animate-neopop-pulse;
+  }
+  
+  .neopop-slide {
+    @apply animate-neopop-slide;
+  }
+
+  .bg-gradient-animated {
+    background: linear-gradient(-45deg, #8B5CF6, #EC4899, #06B6D4, #8B5CF6);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+  }
+
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-2;
+  }
+
+  .hover-glow {
+    @apply transition-shadow duration-300 hover:shadow-glow-lg;
+  }
+}
+
