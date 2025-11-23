@@ -39,12 +39,12 @@ export function WaitlistForm() {
 
     try {
       // Send data to Vercel backend API
-      const response = await fetch(getWaitlistApiUrl(), {
+      const response = await fetch('/api/join-waitlist', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ email: formData.email }),
       })
 
 
