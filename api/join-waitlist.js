@@ -3,9 +3,8 @@ import mongoose from 'mongoose';
 const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
-    throw new Error(
-        'Please define the MONGODB_URI environment variable inside .env.local'
-    );
+    console.error('MONGODB_URI is not defined');
+    // We cannot throw here at top level or it crashes the function initialization
 }
 
 /**
@@ -89,7 +88,16 @@ const Waitlist = mongoose.models.Waitlist || mongoose.model('Waitlist', Waitlist
 export default async function handler(request, response) {
     const { method } = request;
 
-    await dbConnect();
+    if (!MONGODB_URI) {
+        return response.status(500).json({ success: false, message: 'Server Configuration Error: MONGODB_URI is missing' });
+    }
+
+    try {
+        await dbConnect();
+    } catch (dbError) {
+        console.error('Database Connection Failed:', dbError);
+        return response.status(500).json({ success: false, message: 'Database connection failed' });
+    }
 
     if (method === 'POST') {
         try {
