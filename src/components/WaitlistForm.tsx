@@ -4,7 +4,6 @@ import { Mail, User, Phone, DollarSign, CheckCircle, AlertCircle } from 'lucide-
 import { NeopopButton } from './NeopopButton'
 import { NeopopInput } from './NeopopInput'
 import { NeopopCard } from './NeopopCard'
-import { getWaitlistApiUrl } from '../config/api'
 
 interface WaitlistData {
   name: string
