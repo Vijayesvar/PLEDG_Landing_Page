@@ -22,7 +22,7 @@ export function BitcoinStats() {
 
         // Fetch BTC stats from Cloudflare Worker
         const WORKER_URL = "https://lucky-wave-c3fe.wolf07279.workers.dev"
-        const response = await axios.get(`${WORKER_URL}?t = ${Date.now()} `)
+        const response = await axios.get(`${WORKER_URL}?t=${Date.now()}`)
 
         const btcData = response.data.bitcoin
 
@@ -33,11 +33,11 @@ export function BitcoinStats() {
         }
 
         const newStats = {
-          price: btcData.usd || 0,
-          change24h: 0, // This field is not directly available in the provided worker data
-          changePercentage: btcData.usd_24h_change || 0,
+          price: btcData.inr || 0,
+          change24h: btcData.change24h || 0, // This field is not directly available in the provided worker data
+          changePercentage: btcData.change24h || 0,
           marketCap: btcData.market_cap || 0,
-          volume24h: btcData.volume_24h || 0
+          volume24h: btcData.volume24h || 0
         }
 
         setStats(newStats)
