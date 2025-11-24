@@ -7,6 +7,8 @@ interface BitcoinPriceData {
   price: number
   change24h: number
   changePercentage: number
+  marketCap: number
+  volume24h: number
   lastUpdated: Date
 }
 
@@ -26,12 +28,14 @@ export function BitcoinPrice() {
       // Updated structure based on your Worker response
       const btc = response.data.bitcoin
 
-      const newPriceData: BitcoinPriceData = {
-        price: btc.inr,
-        change24h: btc.change24h,
-        changePercentage: btc.change24h,
-        lastUpdated: new Date()
-      }
+	  const newPriceData: BitcoinPriceData = {
+	    price: btc.inr,
+	    change24h: btc.change24h,
+	    changePercentage: btc.change24h,
+	    marketCap: btc.market_cap,
+	    volume24h: btc.volume24h,
+	    lastUpdated: new Date()
+	  }
 
       setPriceData(newPriceData)
       localStorage.setItem('lastBitcoinPrice', JSON.stringify(newPriceData))
