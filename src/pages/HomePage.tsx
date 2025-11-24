@@ -265,7 +265,7 @@ export function Home() {
                 onClick={() => window.location.href = '/benefits'}
                 className="flex items-center justify-center gap-2"
               >
-                <span>Explore Benefits for Indian Crypto Holders</span>
+                <span>Explore Benefits for Indian Bitcoin Holders</span>
                 <ArrowRight size={20} />
               </NeopopButton>
             </div>
@@ -359,8 +359,6 @@ export function Home() {
             </motion.div>
           ))}
         </div>
-
-
       </section>
 
       {/* Security Section */}

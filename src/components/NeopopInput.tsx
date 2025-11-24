@@ -44,14 +44,14 @@ export function NeopopInput({
           {label}
         </label>
       )}
-      
+
       <div className="relative">
         {icon && (
-          <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+          <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 z-10 pointer-events-none">
             {icon}
           </div>
         )}
-        
+
         <motion.input
           type={type}
           value={value}
@@ -70,7 +70,7 @@ export function NeopopInput({
             disabled ? "opacity-50 cursor-not-allowed" : ""
           )}
         />
-        
+
         {success && (
           <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-green-500">
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -79,7 +79,7 @@ export function NeopopInput({
           </div>
         )}
       </div>
-      
+
       {error && (
         <motion.p
           initial={{ opacity: 0, y: -10 }}
