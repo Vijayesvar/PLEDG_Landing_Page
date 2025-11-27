@@ -58,13 +58,13 @@ export function Header() {
       >
         <div className="container-custom flex justify-between items-center">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-1.5 group">
-            <div className="relative">
+          <Link to="/" className="flex items-center group">
+            <div className="relative mr-0.5">
               <div className="absolute inset-0 bg-gold-muted/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <PledgLogo className="h-8 w-8 relative z-10" />
+              <PledgLogo className="h-10 w-10 relative z-10" />
             </div>
-            <span className="text-2xl font-serif font-bold tracking-tighter text-white group-hover:text-gold-muted transition-colors">
-              Pledg
+            <span className="text-3xl font-serif font-bold tracking-tighter text-white group-hover:text-gold-muted transition-colors -ml-1 mt-1">
+              ledg
             </span>
           </Link>
 

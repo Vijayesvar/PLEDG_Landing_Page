@@ -8,9 +8,9 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
           <div className="col-span-1">
-            <div className="flex items-center gap-1.5 mb-6">
-              <PledgLogo className="h-8 w-8" />
-              <span className="text-2xl font-serif font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">Pledg</span>
+            <div className="flex items-center mb-6">
+              <PledgLogo className="h-10 w-10" />
+              <span className="text-3xl font-serif font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 -ml-1 mt-1">ledg</span>
             </div>
             <p className="text-gray-400 mb-6 text-sm leading-relaxed">
               Unlock the value of your Bitcoin without selling. Secure, flexible loans backed by your Bitcoin assets.
