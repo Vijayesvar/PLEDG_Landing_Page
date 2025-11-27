@@ -8,12 +8,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
           <div className="col-span-1">
-            <div className="flex items-center gap-2 mb-6">
+            <div className="flex items-center gap-1.5 mb-6">
               <PledgLogo className="h-8 w-8" />
-              <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">Pledg</span>
+              <span className="text-2xl font-serif font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">Pledg</span>
             </div>
             <p className="text-gray-400 mb-6 text-sm leading-relaxed">
-              Unlock the value of your Bitcoin without selling. Secure, flexible loans backed by your crypto assets.
+              Unlock the value of your Bitcoin without selling. Secure, flexible loans backed by your Bitcoin assets.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors p-2 hover:bg-white/5 rounded-full">
@@ -35,18 +35,18 @@ export function Footer() {
               <li><a href="#" className="hover:text-primary-400 transition-colors">Home</a></li>
               <li><a href="#features" className="hover:text-primary-400 transition-colors">Features</a></li>
               <li><a href="#how-it-works" className="hover:text-primary-400 transition-colors">How It Works</a></li>
-              <li><a href="/benefits" className="hover:text-primary-400 transition-colors">Benefits</a></li>
+
             </ul>
           </div>
 
-          {/* Legal */}
+          {/* Security */}
           <div>
-            <h4 className="font-semibold text-white mb-6">Legal</h4>
+            <h4 className="font-semibold text-white mb-6">Security</h4>
             <ul className="space-y-3 text-sm text-gray-400">
-              <li><a href="#" className="hover:text-primary-400 transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-primary-400 transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-primary-400 transition-colors">Disclaimer</a></li>
-              <li><a href="#" className="hover:text-primary-400 transition-colors">Cookie Policy</a></li>
+              <li><a href="#security" className="hover:text-primary-400 transition-colors">BitGo Custody</a></li>
+              <li><a href="#security" className="hover:text-primary-400 transition-colors">MPC Technology</a></li>
+              <li><a href="#security" className="hover:text-primary-400 transition-colors">100% Compliance</a></li>
+              <li><a href="#security" className="hover:text-primary-400 transition-colors">Regular Audits</a></li>
             </ul>
           </div>
 
@@ -66,7 +66,7 @@ export function Footer() {
           </div>
         </div>
         <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-          <p>&copy; 2025 Pledg. All rights reserved. | Made for Indian crypto holders</p>
+          <p>&copy; 2025 Pledg. All rights reserved. | Made for Indian Bitcoin holders</p>
         </div>
       </div>
     </footer>

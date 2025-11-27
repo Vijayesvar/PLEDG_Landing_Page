@@ -1,149 +1,172 @@
-import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { Menu, X } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { Menu, X, ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PledgLogo } from './PledgLogo'
+import { PremiumButton } from './PremiumButton'
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const location = useLocation()
+  const [scrolled, setScrolled] = useState(false)
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isMenuOpen])
 
   const navigation = [
-    { name: 'Benefits', href: '/benefits' },
+
     { name: 'Features', href: '/#features' },
     { name: 'How It Works', href: '/#how-it-works' },
     { name: 'Security', href: '/#security' },
     { name: 'FAQ', href: '/#faq' },
   ]
 
-  const isActive = (href: string) => {
-    if (href.startsWith('/#')) {
-      return location.pathname === '/' && location.hash === href.substring(1)
-    }
-    return location.pathname === href
-  }
-
   const handleNavigation = (href: string) => {
+    setIsMenuOpen(false)
     if (href.startsWith('/#')) {
-      // Handle hash navigation
-      const elementId = href.substring(2) // Remove '/#'
+      const elementId = href.substring(2)
       const element = document.getElementById(elementId)
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' })
+        }, 300)
       }
     }
-    // For regular links, React Router will handle navigation
   }
 
-  const isBenefitsPage = location.pathname === '/benefits'
+
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-slate-900/70 bg-slate-900/95">
-      <div className="container-custom py-4 md:py-6">
-        <div className="flex justify-between items-center">
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-obsidian/90 backdrop-blur-md border-b border-white/5 py-3' : 'bg-transparent py-5'
+          }`}
+      >
+        <div className="container-custom flex justify-between items-center">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <PledgLogo className="h-8 w-8" />
-            <span className="text-xl font-bold">Pledg</span>
+          <Link to="/" className="flex items-center gap-1.5 group">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gold-muted/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <PledgLogo className="h-8 w-8 relative z-10" />
+            </div>
+            <span className="text-2xl font-serif font-bold tracking-tighter text-white group-hover:text-gold-muted transition-colors">
+              Pledg
+            </span>
           </Link>
 
-          {/* Desktop Navigation - Hidden on Benefits page */}
-          {!isBenefitsPage && (
-            <nav className="hidden md:flex items-center gap-8">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={(e) => {
-                    if (item.href.startsWith('/#')) {
-                      e.preventDefault()
-                      handleNavigation(item.href)
-                    }
-                  }}
-                  className={`hover:text-primary-400 transition-colors ${
-                    isActive(item.href) ? 'text-primary-400 font-medium' : ''
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
-          )}
-
-          {/* CTA & Mobile Menu */}
-          <div className="flex items-center gap-4">
-            {!isBenefitsPage && (
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8">
+            {navigation.map((item) => (
               <Link
-                to="/#waitlist"
+                key={item.name}
+                to={item.href}
                 onClick={(e) => {
-                  e.preventDefault()
-                  handleNavigation('/#waitlist')
+                  if (item.href.startsWith('/#')) {
+                    e.preventDefault()
+                    handleNavigation(item.href)
+                  }
                 }}
-                className="btn-primary hidden md:inline-flex"
+                className="text-sm font-medium text-gray-400 hover:text-gold-muted transition-colors tracking-wide"
               >
-                Join Waitlist
+                {item.name}
               </Link>
-            )}
-            
-            {/* Mobile menu button - Hidden on Benefits page */}
-            {!isBenefitsPage && (
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden text-white p-2"
-                aria-label="Toggle menu"
-              >
-                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            )}
-          </div>
-        </div>
+            ))}
+            <PremiumButton
+              variant="primary"
+              size="sm"
+              onClick={() => handleNavigation('/#waitlist')}
+            >
+              Join Waitlist
+            </PremiumButton>
+          </nav>
 
-        {/* Mobile Navigation - Hidden on Benefits page */}
-        {!isBenefitsPage && (
-          <AnimatePresence>
-            {isMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="md:hidden mt-4 border-t border-gray-700 pt-4"
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setIsMenuOpen(true)}
+            className="md:hidden p-2 text-white hover:text-gold-muted transition-colors"
+          >
+            <Menu size={24} strokeWidth={1.5} />
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Full Screen Menu */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[60] bg-obsidian flex flex-col"
+          >
+            {/* Menu Header */}
+            <div className="flex justify-between items-center p-5 border-b border-white/5">
+              <span className="text-xl font-serif font-bold text-white">Menu</span>
+              <button
+                onClick={() => setIsMenuOpen(false)}
+                className="p-2 text-gray-400 hover:text-white transition-colors"
               >
-                <nav className="flex flex-col gap-4">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      onClick={(e) => {
-                        setIsMenuOpen(false)
-                        if (item.href.startsWith('/#')) {
-                          e.preventDefault()
-                          handleNavigation(item.href)
-                        }
-                      }}
-                      className={`hover:text-primary-400 transition-colors ${
-                        isActive(item.href) ? 'text-primary-400 font-medium' : ''
-                      }`}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
+                <X size={24} strokeWidth={1.5} />
+              </button>
+            </div>
+
+            {/* Menu Items */}
+            <div className="flex-1 flex flex-col justify-center p-8 space-y-6">
+              {navigation.map((item, index) => (
+                <motion.div
+                  key={item.name}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
                   <Link
-                    to="/#waitlist"
+                    to={item.href}
                     onClick={(e) => {
-                      e.preventDefault()
-                      setIsMenuOpen(false)
-                      handleNavigation('/#waitlist')
+                      if (item.href.startsWith('/#')) {
+                        e.preventDefault()
+                        handleNavigation(item.href)
+                      } else {
+                        setIsMenuOpen(false)
+                      }
                     }}
-                    className="btn-primary mt-4"
+                    className="text-3xl font-serif font-medium text-gray-300 hover:text-gold-muted transition-colors flex items-center gap-4 group"
                   >
-                    Join Waitlist
+                    <span className="w-0 group-hover:w-8 h-[1px] bg-gold-muted transition-all duration-300" />
+                    {item.name}
                   </Link>
-                </nav>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Menu Footer */}
+            <div className="p-8 border-t border-white/5">
+              <PremiumButton
+                variant="primary"
+                className="w-full justify-between group"
+                onClick={() => handleNavigation('/#waitlist')}
+              >
+                <span>Join Waitlist</span>
+                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              </PremiumButton>
+            </div>
+          </motion.div>
         )}
-      </div>
-    </header>
+      </AnimatePresence>
+    </>
   )
 }
