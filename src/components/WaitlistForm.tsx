@@ -103,7 +103,7 @@ export function WaitlistForm() {
                 value={formData.name}
                 onChange={handleInputChange}
                 label="Full Name"
-                placeholder="John Doe"
+                placeholder="Satoshi Nakamoto"
                 required
                 icon={<User size={18} />}
               />
@@ -113,7 +113,7 @@ export function WaitlistForm() {
                 value={formData.email}
                 onChange={handleInputChange}
                 label="Email Address (Optional)"
-                placeholder="john@example.com"
+                placeholder="satoshi@bitcoin.org"
                 icon={<Mail size={18} />}
               />
             </div>

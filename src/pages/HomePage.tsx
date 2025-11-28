@@ -219,7 +219,7 @@ export function Home() {
               >
                 <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 leading-tight">
                   Seamless Access to <br />
-                  <span className="text-gold-gradient">Global Liquidity</span>
+                  <span className="text-gold-gradient">Instant Liquidity</span>
                 </h2>
                 <p className="text-gray-400 text-lg">
                   Three simple steps to unlock the value of your digital assets without tax events.
