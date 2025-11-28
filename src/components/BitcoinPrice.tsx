@@ -2,15 +2,14 @@ import { useState, useEffect } from 'react'
 import { TrendingUp, TrendingDown, RefreshCw } from 'lucide-react'
 import axios from 'axios'
 import { EditorialCard } from './EditorialCard'
-import { formatCurrency } from '@/lib/utils'
+import { formatCurrency, cn } from '@/lib/utils'
+import { GoldBitcoin } from './GoldBitcoin'
 
 interface BitcoinData {
     price: number
     change24h: number
     lastUpdated: string
 }
-
-import { cn } from '@/lib/utils'
 
 interface BitcoinPriceProps {
     className?: string
@@ -62,26 +61,26 @@ export function BitcoinPrice({ className }: BitcoinPriceProps) {
     }
 
     return (
-        <EditorialCard className={cn("w-full max-w-sm mx-auto backdrop-blur-md bg-obsidian/80 border-gold-muted/20 hover:border-gold-muted/40 transition-colors duration-500 group", className)}>
-            <div className="flex items-start justify-between mb-4">
+        <EditorialCard className={cn("relative w-full max-w-sm mx-auto backdrop-blur-md bg-obsidian/80 border-gold-muted/20 hover:border-gold-muted/40 transition-colors duration-500 group overflow-visible", className)}>
+            <div className="flex items-center justify-between mb-4 relative z-20">
                 <div>
                     <p className="text-xs font-medium text-gold-muted uppercase tracking-widest mb-1">Live Bitcoin Price</p>
                     <div className="flex items-baseline gap-2">
                         {loading ? (
                             <div className="h-8 w-32 bg-white/10 rounded animate-pulse" />
                         ) : (
-                            <h3 className="text-3xl font-serif font-bold text-white">
+                            <h3 className="text-3xl font-sans font-bold text-white">
                                 {data ? formatCurrency(data.price) : '---'}
                             </h3>
                         )}
                     </div>
                 </div>
-                <div className="p-2 rounded-full bg-gold-muted/10 text-gold-muted group-hover:scale-110 transition-transform duration-500">
-                    <TrendingUp size={20} />
+                <div className="relative">
+                    <GoldBitcoin className="w-20 h-20 md:w-24 md:h-24" />
                 </div>
             </div>
 
-            <div className="flex items-center justify-between pt-4 border-t border-white/5">
+            <div className="flex items-center justify-between pt-4 border-t border-white/5 relative z-20">
                 <div className="flex items-center gap-2">
                     {loading ? (
                         <div className="h-4 w-16 bg-white/10 rounded animate-pulse" />
@@ -93,7 +92,7 @@ export function BitcoinPrice({ className }: BitcoinPriceProps) {
                     )}
                     <span className="text-xs text-gray-500">24h Change</span>
                 </div>
-                <div className="text-xs text-gray-600 font-mono">
+                <div className="text-xs text-gray-600 font-mono pr-12">
                     BTC / INR
                 </div>
             </div>

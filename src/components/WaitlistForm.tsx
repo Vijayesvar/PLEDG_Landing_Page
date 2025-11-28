@@ -86,7 +86,7 @@ export function WaitlistForm() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6">
+          <h2 className="text-3xl md:text-5xl font-sans font-bold mb-6">
             <span className="text-white">Join the</span>{' '}
             <span className="text-gold-gradient">Exclusive Waitlist</span>
           </h2>

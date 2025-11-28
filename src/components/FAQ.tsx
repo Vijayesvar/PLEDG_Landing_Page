@@ -74,7 +74,7 @@ export function FAQ({ faqs: propFaqs }: FAQProps) {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6">
+          <h2 className="text-3xl md:text-5xl font-sans font-bold mb-6">
             <span className="text-gold-gradient">Common Questions</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto font-sans">
@@ -95,7 +95,7 @@ export function FAQ({ faqs: propFaqs }: FAQProps) {
                   onClick={() => toggleFAQ(index)}
                   className="w-full flex items-center justify-between p-6 text-left"
                 >
-                  <h3 className={`text-lg md:text-xl font-serif font-medium pr-8 transition-colors duration-300 ${openIndex === index ? 'text-gold-muted' : 'text-white group-hover:text-gold-muted/80'}`}>
+                  <h3 className={`text-lg md:text-xl font-sans font-medium pr-8 transition-colors duration-300 ${openIndex === index ? 'text-gold-muted' : 'text-white group-hover:text-gold-muted/80'}`}>
                     {faq.question}
                   </h3>
                   <div className={`flex-shrink-0 w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-300 ${openIndex === index ? 'border-gold-muted bg-gold-muted/10 text-gold-muted' : 'border-white/10 text-gray-500 group-hover:border-gold-muted/30'}`}>

@@ -8,6 +8,8 @@ import { EditorialCard } from '@/components/EditorialCard'
 import { BitcoinPrice } from '@/components/BitcoinPrice'
 import { LoanCalculator } from '@/components/LoanCalculator'
 import { BitcoinComparison } from '@/components/BitcoinComparison'
+import { GoldBitcoin } from '@/components/GoldBitcoin'
+import { GoldSandBackground } from '@/components/GoldSandBackground'
 
 export function Home() {
   const pledgStandardFeatures = [
@@ -74,6 +76,7 @@ export function Home() {
         <div className="absolute inset-0 z-0">
           <div className="absolute top-0 right-0 w-3/4 h-3/4 bg-gold-muted/5 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/4" />
           <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-obsidian/50 rounded-full blur-[100px] -translate-x-1/4 translate-y-1/4" />
+          <GoldSandBackground />
         </div>
 
         <div className="container-mobile relative z-10">
@@ -89,7 +92,7 @@ export function Home() {
                 <span className="text-xs font-medium tracking-widest uppercase text-gray-300">Coming Soon to India</span>
               </div>
 
-              <h1 className="text-4xl md:text-7xl lg:text-8xl font-serif font-bold leading-tight md:leading-[0.9] tracking-tight">
+              <h1 className="text-4xl md:text-7xl lg:text-8xl font-sans font-bold leading-tight md:leading-[0.9] tracking-tight">
                 <span className="text-white block mb-2 md:mb-0">Liquidity</span>
                 <span className="text-gold-muted block italic mb-2 md:mb-0">Without Selling</span>
                 <span className="text-white block">Bitcoin.</span>
@@ -134,9 +137,11 @@ export function Home() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="relative"
+              className="relative flex items-center justify-center lg:justify-start"
             >
-              <BitcoinPrice />
+              <div className="relative z-10 w-full max-w-sm">
+                <BitcoinPrice />
+              </div>
 
               {/* Decorative elements */}
               <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] border border-white/5 rounded-full animate-[spin_60s_linear_infinite]" />
@@ -161,7 +166,7 @@ export function Home() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-white">The Indian Bitcoin Dilemma</h2>
+          <h2 className="text-3xl md:text-4xl font-sans font-bold mb-4 text-white">The Indian Bitcoin Dilemma</h2>
           <p className="text-gray-400 max-w-3xl mx-auto">Why traditional financial solutions don't work for Bitcoin holders in India</p>
         </motion.div>
 
@@ -177,7 +182,7 @@ export function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-20"
           >
-            <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6">
+            <h2 className="text-3xl md:text-5xl font-sans font-bold mb-6">
               The <span className="text-gold-muted italic">Pledg</span> Standard
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">

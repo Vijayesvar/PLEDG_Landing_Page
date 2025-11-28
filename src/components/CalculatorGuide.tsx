@@ -27,7 +27,7 @@ export function CalculatorGuide() {
     return (
         <div className="h-full flex flex-col justify-center p-8 border border-white/5 rounded-2xl bg-white/5 backdrop-blur-sm">
             <div className="mb-8">
-                <h3 className="text-2xl font-serif font-bold text-white mb-2">How it Works</h3>
+                <h3 className="text-2xl font-sans font-bold text-white mb-2">How it Works</h3>
                 <p className="text-gray-400 text-sm">
                     Understand the math behind borrowing vs. selling your Bitcoin.
                 </p>

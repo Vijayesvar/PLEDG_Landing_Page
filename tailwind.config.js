@@ -25,8 +25,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['DM Sans', 'system-ui', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
+        sans: ['Inter', 'sans-serif'],
+        serif: ['Inter', 'serif'],
       },
       backgroundImage: {
         'gold-gradient': 'linear-gradient(to right, #c5a059, #e6c278, #c5a059)',

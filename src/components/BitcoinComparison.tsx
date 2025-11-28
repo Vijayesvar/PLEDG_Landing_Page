@@ -35,7 +35,7 @@ export function BitcoinComparison() {
               <XCircle size={24} />
             </div>
             <div>
-              <h3 className="text-2xl font-serif font-bold text-white">Selling Bitcoin</h3>
+              <h3 className="text-2xl font-sans font-bold text-white">Selling Bitcoin</h3>
               <p className="text-sm text-red-400 font-medium tracking-wide uppercase">Taxable Event</p>
             </div>
           </div>
@@ -54,7 +54,7 @@ export function BitcoinComparison() {
             <div className="pt-6 border-t border-white/5 mt-auto">
               <div className="flex justify-between items-end">
                 <span className="text-sm text-gray-400 font-medium">Net Amount</span>
-                <span className="text-2xl md:text-3xl font-serif font-bold text-white">
+                <span className="text-2xl md:text-3xl font-sans font-bold text-white">
                   {formatCurrency(netAmount)}
                 </span>
               </div>
@@ -87,7 +87,7 @@ export function BitcoinComparison() {
               <CheckCircle size={24} />
             </div>
             <div>
-              <h3 className="text-2xl font-serif font-bold text-white">Using Pledg</h3>
+              <h3 className="text-2xl font-sans font-bold text-white">Using Pledg</h3>
               <p className="text-sm text-emerald-400 font-medium tracking-wide uppercase">Tax-Free Liquidity</p>
             </div>
           </div>
