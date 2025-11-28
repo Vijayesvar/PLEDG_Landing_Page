@@ -15,7 +15,7 @@ export default {
           bright: '#e6c278',
         },
         surface: '#1a1a1a',
-        
+
         // Legacy/Semantic mapping
         primary: {
           400: '#c5a059', // Muted Gold
