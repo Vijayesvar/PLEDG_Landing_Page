@@ -1,0 +1,21 @@
+src/components/BitcoinPrice.tsx(2,1): error TS6133: 'motion' is declared but its value is never read.
+src/components/EditorialCard.tsx(13,14): error TS2322: Type '{ children: ReactNode; defaultChecked?: boolean | undefined; defaultValue?: string | number | readonly string[] | undefined; suppressContentEditableWarning?: boolean | undefined; ... 264 more ...; className: string; }' is not assignable to type 'MotionProps'.
+  Types of property 'onAnimationStart' are incompatible.
+    Type 'AnimationEventHandler<HTMLDivElement> | undefined' is not assignable to type '((definition: AnimationDefinition) => void) | undefined'.
+      Type 'AnimationEventHandler<HTMLDivElement>' is not assignable to type '(definition: AnimationDefinition) => void'.
+        Types of parameters 'event' and 'definition' are incompatible.
+          Type 'AnimationDefinition' is not assignable to type 'AnimationEvent<HTMLDivElement>'.
+            Type 'string' is not assignable to type 'AnimationEvent<HTMLDivElement>'.
+src/components/LoanCalculator.tsx(3,34): error TS6133: 'Shield' is declared but its value is never read.
+src/components/LoanCalculator.tsx(3,66): error TS6133: 'Info' is declared but its value is never read.
+src/components/LoanCalculator.tsx(163,14): error TS2304: Cannot find name 'AnimatePresence'.
+src/components/LoanCalculator.tsx(226,15): error TS2304: Cannot find name 'AnimatePresence'.
+src/components/PremiumButton.tsx(28,14): error TS2322: Type '{ children: string | number | boolean | Element | Iterable<ReactNode> | null | undefined; disabled: boolean | undefined; form?: string | undefined; ... 272 more ...; className: string; }' is not assignable to type 'MotionProps'.
+  Types of property 'onAnimationStart' are incompatible.
+    Type 'AnimationEventHandler<HTMLButtonElement> | undefined' is not assignable to type '((definition: AnimationDefinition) => void) | undefined'.
+      Type 'AnimationEventHandler<HTMLButtonElement>' is not assignable to type '(definition: AnimationDefinition) => void'.
+        Types of parameters 'event' and 'definition' are incompatible.
+          Type 'AnimationDefinition' is not assignable to type 'AnimationEvent<HTMLButtonElement>'.
+            Type 'string' is not assignable to type 'AnimationEvent<HTMLButtonElement>'.
+src/components/WaitlistForm.tsx(190,14): error TS2304: Cannot find name 'AnimatePresence'.
+src/components/WaitlistForm.tsx(214,15): error TS2304: Cannot find name 'AnimatePresence'.

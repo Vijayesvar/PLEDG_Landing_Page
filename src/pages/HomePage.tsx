@@ -1,434 +1,343 @@
 import { motion } from 'framer-motion'
-import { ArrowRight, Shield, CheckCircle, Percent, Banknote, Lock, Zap, RefreshCw, Headphones, AlertCircle } from 'lucide-react'
+import { ArrowRight, Shield, CheckCircle, Percent, Banknote, Lock, Zap, Info, Target, ChevronDown } from 'lucide-react'
 
 import { WaitlistForm } from '@/components/WaitlistForm'
 import { FAQ } from '@/components/FAQ'
-import { NeopopButton } from '@/components/NeopopButton'
-import { NeopopCard } from '@/components/NeopopCard'
+import { PremiumButton } from '@/components/PremiumButton'
+import { EditorialCard } from '@/components/EditorialCard'
 import { BitcoinPrice } from '@/components/BitcoinPrice'
-import { ScrollReveal } from '@/components/ScrollReveal'
-import { AnimatedBackground } from '@/components/AnimatedBackground'
+import { LoanCalculator } from '@/components/LoanCalculator'
+import { BitcoinComparison } from '@/components/BitcoinComparison'
 
 export function Home() {
-  const features = [
+  const pledgStandardFeatures = [
     {
-      icon: Percent,
-      title: '50% LTV Ratio',
-      description: 'Optimize your loan-to-value ratio at 50%, balancing liquidity needs with risk management.',
+      icon: Shield,
+      title: 'Tax Efficiency',
+      description: 'Skip the 30% + 4% cess tax on Bitcoin gains by using Bitcoin as collateral instead of selling.',
     },
     {
       icon: Banknote,
-      title: 'INR Disbursement',
-      description: 'Receive funds directly to your INR bank account via secure bank transfer.',
+      title: 'Instant Liquidity',
+      description: 'Receive funds directly to your INR bank account via secure bank transfer within 24 hours.',
     },
     {
       icon: Lock,
-      title: 'Enterprise-Grade Security',
-      description: 'Advanced security measures ensure your assets are protected with institutional-level security.',
+      title: 'Enterprise Security',
+      description: 'Assets secured by BitGo\'s institutional-grade custody with Multi-Party Computation (MPC).',
     },
     {
-      icon: Zap,
-      title: 'Fast Approval Process',
-      description: 'Quick application review and approval process gets you access to funds when you need them.',
+      icon: Percent,
+      title: 'Smart LTV',
+      description: 'Optimize your loan-to-value ratio at 50%, balancing liquidity needs with risk management.',
     },
     {
-      icon: RefreshCw,
-      title: 'Flexible Repayment',
-      description: 'Multiple repayment options designed to fit your financial timeline and preferences.',
+      icon: Target,
+      title: 'Flexible Terms',
+      description: 'Choose loan terms from 1 to 12 months with no credit checks required.',
     },
     {
-      icon: Headphones,
-      title: '24/7 Support',
-      description: 'Dedicated customer support team available around the clock to assist with any questions.',
+      icon: Info,
+      title: 'Full Compliance',
+      description: 'Fully compliant with Indian financial regulations for secure and transparent operations.',
     },
   ]
 
   const steps = [
     {
-      number: '1',
+      number: '01',
       title: 'Apply',
       description: 'Complete our simple application process, indicating your desired loan amount.',
-      features: ['Quick online application', 'No credit check required', 'Choose loan currency'],
+      features: ['Quick online application', 'No credit check required', 'Flexible tenure options'],
     },
     {
-      number: '2',
+      number: '02',
       title: 'Secure',
       description: 'Deposit your Bitcoin collateral into our secure, enterprise-grade wallet system.',
       features: ['Institutional-grade security', 'Multi-party computation', 'Insurance-backed protection'],
     },
     {
-      number: '3',
+      number: '03',
       title: 'Receive Funds',
       description: 'Get your loan funds quickly disbursed to your preferred destination.',
       features: ['Fast transfer to INR bank account', 'Secure bank transfer process', 'Transparent fee structure'],
     },
   ]
 
-  const faqs = [
-    {
-      question: 'What is the LTV ratio and why is 50% beneficial?',
-      answer: 'LTV (Loan-to-Value) ratio is the proportion of the loan amount to the value of your collateral. Our 50% LTV means you can borrow up to 50% of your Bitcoin\'s value. This balanced ratio offers protection against market volatility while still providing substantial liquidity for your needs.',
-    },
-    {
-      question: 'How does our secure wallet system work?',
-      answer: 'Our secure wallet system uses MPC (Multi-Party Computation) technology, which means your private keys are never stored in a single location. Combined with segregated cold storage, advanced encryption, and comprehensive risk management protocols, your Bitcoin collateral is protected by institutional-grade security that eliminates single points of failure.',
-    },
-    {
-      question: 'What happens if the value of Bitcoin drops?',
-      answer: 'If Bitcoin\'s value decreases, your LTV ratio increases. At certain thresholds, you may receive margin calls to either add more collateral or partially repay your loan to maintain a healthy LTV. Our 50% initial LTV provides a substantial buffer against market volatility.',
-    },
-    {
-      question: 'What disbursement methods do you support?',
-      answer: 'We currently disburse loans in INR via secure bank transfer directly to your Indian bank account. This ensures fast, reliable, and compliant fund transfers.',
-    },
-    {
-      question: 'What are the loan terms and interest rates?',
-      answer: 'Loan terms range from 3 to 12 months. Interest rates start from 12% APR and vary by term, loan amount, and market conditions. You will see your final rate before accepting.',
-    },
-    {
-      question: 'What are the loan amount limits?',
-      answer: 'We offer loans ranging from ₹10,000 to ₹1,00,00,000. The exact amount you can borrow depends on the value of your Bitcoin collateral and our 50% LTV ratio.',
-    },
-    {
-      question: 'Do you rehypothecate collateral?',
-      answer: 'No. Pledg does not rehypothecate collateral. Your BTC is segregated and never lent or pledged elsewhere.',
-    },
-    {
-      question: 'Can I monitor my collateral on-chain?',
-      answer: 'Yes. We provide an on-chain address so you can monitor your collateral at all times for transparency.',
-    },
-    {
-      question: 'How fast can I get funded?',
-      answer: 'Once collateral is received and verification is complete, disbursement typically occurs within 24 hours directly to your INR bank account.',
-    },
-    {
-      question: 'Are there prepayment penalties?',
-      answer: 'No. You can repay early at any time. Interest accrues only for days outstanding.',
-    },
-    {
-      question: 'What are the eligibility and KYC requirements?',
-      answer: 'Standard KYC and AML checks are required before disbursement. Availability may vary by jurisdiction.',
-    },
-    {
-      question: 'How is my BTC stored?',
-      answer: 'Collateral is held using secure, encrypted wallets with multiple layers of protection and approval controls. Your assets are never at risk from single points of failure.',
-    },
-  ]
+
 
   return (
     <>
-      {/* Animated Background */}
-      <AnimatedBackground />
-
       {/* Hero Section */}
-      <section className="container-custom py-16 md:py-28 relative">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-6"
-          >
-            <motion.h1
-              className="font-bold leading-tight text-4xl md:text-6xl"
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <span className="gradient-text-animated text-glow">Bitcoin-Backed</span>
-              <br />
-              <span className="text-white">Loans for</span>
-              <br />
-              <span className="text-white">Your Financial Freedom</span>
-            </motion.h1>
-            <p className="text-lg text-gray-300 md:pr-12">
-              Access immediate liquidity with your BTC assets. Disbursements available in INR via secure bank transfer at 50% LTV with industry-leading security.
-            </p>
-            <div className="pt-4 flex flex-col sm:flex-row gap-4">
-              <NeopopButton
-                variant="neopop"
-                size="lg"
-                onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
-                className="flex items-center justify-center gap-2"
-              >
-                <span>Join Waitlist</span>
-                <ArrowRight size={20} />
-              </NeopopButton>
-              <NeopopButton
-                variant="secondary"
-                size="lg"
-                onClick={() => window.location.href = '/benefits'}
-                className="flex items-center justify-center gap-2"
-              >
-                <span>Why Bitcoin Loans Matter in India</span>
-                <ArrowRight size={20} />
-              </NeopopButton>
-            </div>
-            <div
-              className="flex items-center gap-2 text-gray-300 bg-white/5 border border-white/10 px-4 py-2 rounded-full backdrop-blur-sm w-fit"
-            >
-              <Shield className="text-green-400" size={18} />
-              <span className="text-sm font-medium">Enterprise-grade security</span>
-            </div>
-          </motion.div>
+      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-0 right-0 w-3/4 h-3/4 bg-gold-muted/5 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/4" />
+          <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-obsidian/50 rounded-full blur-[100px] -translate-x-1/4 translate-y-1/4" />
+        </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative"
-          >
-            <div className="absolute -top-20 -right-20 h-64 w-64 bg-primary-500/30 rounded-full blur-3xl animate-float"></div>
-            <div className="absolute -bottom-10 -left-10 h-40 w-40 bg-blue-500/20 rounded-full blur-3xl animate-float-delayed"></div>
+        <div className="container-mobile relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div
-              className="relative glass-card p-6 transform hover:scale-105 transition-transform duration-500 shadow-neopop-lg"
-              whileHover={{ rotateY: 5, rotateX: 5 }}
-              style={{ transformStyle: 'preserve-3d' }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-8 text-center lg:text-left"
             >
-              <div className="flex justify-between items-center mb-8">
-                <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 bg-gradient-to-r from-primary-500 to-primary-700 rounded-full flex items-center justify-center shadow-glow-sm">
-                    <span className="text-white font-bold text-sm">P</span>
-                  </div>
-                  <span className="font-bold">Pledg</span>
-                </div>
-                <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-medium animate-pulse">Secure</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
+                <span className="w-2 h-2 rounded-full bg-gold-muted animate-pulse" />
+                <span className="text-xs font-medium tracking-widest uppercase text-gray-300">Coming Soon to India</span>
               </div>
-              <div className="space-y-4">
-                <ul className="space-y-2 text-gray-300">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="text-primary-400" size={16} />
-                    <span>50% LTV</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="text-primary-400" size={16} />
-                    <span>Rates start from 12% APR</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="text-primary-400" size={16} />
-                    <span>No rehypothecation</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="text-primary-400" size={16} />
-                    <span>On-chain address provided to monitor collateral</span>
-                  </li>
-                </ul>
-                <button className="w-full py-3 bg-gradient-to-r from-primary-500 to-primary-700 rounded-lg font-medium hover:shadow-glow-lg transition-all duration-300 transform hover:scale-105">
-                  Apply Now
-                </button>
+
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold leading-[0.9] tracking-tight">
+                <span className="text-white block">Liquidity</span>
+                <span className="text-gold-muted block italic">Without</span>
+                <span className="text-white block">Selling.</span>
+              </h1>
+
+              <p className="text-lg md:text-xl text-gray-400 font-sans leading-relaxed max-w-xl mx-auto lg:mx-0">
+                Unlock the value of your Bitcoin with instant INR loans.
+                Keep your assets, optimize your taxes, and maintain your long-term position.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <PremiumButton
+                  size="lg"
+                  onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="group"
+                >
+                  <span>Calculate Savings</span>
+                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                </PremiumButton>
+                <PremiumButton
+                  variant="outline"
+                  size="lg"
+                  onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  How it Works
+                </PremiumButton>
+              </div>
+
+              <div className="pt-8 flex items-center justify-center lg:justify-start gap-8 text-sm text-gray-500 font-medium">
+                <div className="flex items-center gap-2">
+                  <Shield size={16} className="text-gold-muted" />
+                  <span>Bank-Grade Security</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Zap size={16} className="text-gold-muted" />
+                  <span>24h Disbursement</span>
+                </div>
               </div>
             </motion.div>
-          </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="relative"
+            >
+              <BitcoinPrice />
+
+              {/* Decorative elements */}
+              <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] border border-white/5 rounded-full animate-[spin_60s_linear_infinite]" />
+              <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border border-white/5 rounded-full animate-[spin_40s_linear_infinite_reverse]" />
+            </motion.div>
+          </div>
+        </div>
+
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-gray-600">
+          <ChevronDown size={24} />
         </div>
       </section>
 
-      {/* Bitcoin Price Section */}
-      <ScrollReveal>
-        <section className="container-custom py-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-8"
-          >
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-neopop-gradient">Live Bitcoin Price</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">Track current Bitcoin value to make informed decisions about your collateral</p>
-          </motion.div>
+      {/* Calculator Section */}
+      <LoanCalculator />
 
-          <div className="flex justify-center">
-            <BitcoinPrice />
-          </div>
-        </section>
-      </ScrollReveal>
+      {/* The Indian Bitcoin Dilemma */}
+      <section className="container-mobile py-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-white">The Indian Bitcoin Dilemma</h2>
+          <p className="text-gray-400 max-w-3xl mx-auto">Why traditional financial solutions don't work for Bitcoin holders in India</p>
+        </motion.div>
 
-      {/* Benefits CTA Section */}
-      <section className="bg-gradient-to-r from-primary-900/30 to-gray-900/50 py-16">
-        <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-4xl mx-auto"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              <span className="text-white">Why Bitcoin-Backed Loans</span>
-              <br />
-              <span className="text-neopop-gradient">Matter in India</span>
-            </h2>
-            <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              Discover how Bitcoin-backed loans can save you lakhs in taxes, preserve your crypto holdings,
-              and provide instant liquidity in INR without selling your Bitcoin.
-            </p>
-            <div className="flex justify-center">
-              <NeopopButton
-                variant="neopop"
-                size="lg"
-                onClick={() => window.location.href = '/benefits'}
-                className="flex items-center justify-center gap-2"
-              >
-                <span>Explore Benefits for Indian Bitcoin Holders</span>
-                <ArrowRight size={20} />
-              </NeopopButton>
-            </div>
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
-              <div className="bg-gray-800/30 p-6 rounded-xl border border-gray-700">
-                <div className="text-3xl font-bold text-blue-400 mb-2">24hrs</div>
-                <div className="text-gray-300">Disbursement Time</div>
-                <div className="text-sm text-gray-400">Direct to Indian bank accounts</div>
-              </div>
-              <div className="bg-gray-800/30 p-6 rounded-xl border border-gray-700">
-                <div className="text-3xl font-bold text-purple-400 mb-2">0%</div>
-                <div className="text-gray-300">Capital Gains Tax</div>
-                <div className="text-sm text-gray-400">When using Bitcoin as collateral</div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+        <BitcoinComparison />
       </section>
 
       {/* Features Section */}
-      <ScrollReveal delay={100}>
-        <section id="features" className="container-custom section-padding relative">
-          <div className="absolute top-0 right-0 h-96 w-96 bg-primary-500/10 rounded-full blur-3xl -z-10 animate-float-delayed"></div>
-          <div className="absolute bottom-0 left-0 h-64 w-64 bg-blue-500/10 rounded-full blur-3xl -z-10 animate-float"></div>
+      <section id="features" className="py-24 bg-surface relative overflow-hidden">
+        <div className="container-mobile">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Pledg</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">Access the financial flexibility you need without selling your Bitcoin assets</p>
+            <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6">
+              The <span className="text-gold-muted italic">Pledg</span> Standard
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Built for the sophisticated investor who demands security, speed, and transparency.
+            </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <ScrollReveal key={feature.title} delay={index * 100}>
-                <NeopopCard
-                  variant="default"
-                  className="p-6 hover-lift"
-                >
-                  <div className="icon-neopop mb-4">
-                    <feature.icon className="text-white" size={24} />
+            {pledgStandardFeatures.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <EditorialCard className="h-full hover:bg-white/5 transition-colors duration-500">
+                  <div className="w-12 h-12 rounded-full bg-gold-muted/10 flex items-center justify-center mb-6 text-gold-muted">
+                    <feature.icon size={24} strokeWidth={1.5} />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2 text-neopop-gradient">{feature.title}</h3>
-                  <p className="text-gray-400">{feature.description}</p>
-                </NeopopCard>
-              </ScrollReveal>
+                  <h3 className="text-xl font-serif font-bold mb-3 text-white">{feature.title}</h3>
+                  <p className="text-gray-400 leading-relaxed text-sm">{feature.description}</p>
+                </EditorialCard>
+              </motion.div>
             ))}
           </div>
-        </section>
-      </ScrollReveal>
-
-      {/* How It Works Section */}
-      <section id="how-it-works" className="container-custom section-padding relative">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-80 w-80 bg-primary-500/10 rounded-full blur-3xl -z-10"></div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">How Pledg Works</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">Simple process to get the funds you need while keeping your BTC assets</p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {steps.map((step, index) => (
-            <motion.div
-              key={step.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -5 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="bg-gradient-to-b from-gray-800/50 to-gray-900/50 p-8 rounded-xl border border-gray-700 relative hover:shadow-lg hover:shadow-primary-500/10 transition-all"
-            >
-              <div className="absolute -top-5 -left-5 h-12 w-12 bg-primary-500 rounded-full flex items-center justify-center text-xl font-bold">
-                {step.number}
-              </div>
-              <h3 className="text-xl font-semibold mb-4 mt-2">{step.title}</h3>
-              <p className="text-gray-400 mb-4">{step.description}</p>
-              <ul className="space-y-2 text-gray-400">
-                {step.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-2">
-                    <CheckCircle className="text-green-400" size={16} />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
         </div>
       </section>
 
-      {/* Security Section */}
-      <section id="security" className="container-custom section-padding relative">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] bg-gradient-to-r from-primary-900/20 to-purple-900/20 rounded-full blur-3xl -z-10"></div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Enterprise-Grade Security</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">Your assets are protected with the highest standards of security and transparency.</p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <NeopopCard variant="glow" className="p-8 flex flex-col justify-center items-center text-center">
-            <Shield className="h-16 w-16 text-primary-400 mb-6" />
-            <h3 className="text-3xl font-bold mb-4 text-neopop-gradient">Pledg Security</h3>
-            <p className="text-gray-300 mb-6">
-              We prioritize the safety of your assets. Our platform employs a multi-layered security architecture,
-              including Multi-Party Computation (MPC) technology, segregated cold storage wallets, and robust risk management protocols.
-              Your Bitcoin collateral is held in segregated wallets and never rehypothecated, ensuring maximum protection and transparency.
-            </p>
-          </NeopopCard>
-
-          <div className="grid grid-cols-1 gap-6">
-            {[
-              {
-                title: 'Multi-Party Computation (MPC)',
-                description: 'Advanced MPC technology ensures your private keys are never stored in a single location, eliminating single points of failure.',
-                icon: Lock,
-              },
-              {
-                title: 'Segregated Wallets',
-                description: 'Your Bitcoin collateral is held in completely segregated wallets, never mixed with other assets or rehypothecated.',
-                icon: Shield,
-              },
-              {
-                title: 'Cold Storage Security',
-                description: 'Assets are stored in offline cold storage with MPC (Multi-Party Computation) technology and institutional-grade security protocols.',
-                icon: AlertCircle,
-              },
-              {
-                title: 'Regular Security Audits',
-                description: 'Our systems undergo regular security audits by independent third parties to ensure the highest security standards.',
-                icon: CheckCircle,
-              },
-            ].map((feature) => (
-              <NeopopCard
-                key={feature.title}
-                variant="glass"
-                className="p-6 flex items-start gap-4"
+      {/* How It Works Section */}
+      <section id="how-it-works" className="py-24 relative">
+        <div className="container-mobile">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="mb-12"
               >
-                <div className="icon-neopop flex-shrink-0">
-                  <feature.icon className="text-white" size={24} />
+                <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 leading-tight">
+                  Seamless Access to <br />
+                  <span className="text-gold-gradient">Global Liquidity</span>
+                </h2>
+                <p className="text-gray-400 text-lg">
+                  Three simple steps to unlock the value of your digital assets without tax events.
+                </p>
+              </motion.div>
+
+              <div className="space-y-12">
+                {steps.map((step, index) => (
+                  <motion.div
+                    key={step.number}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.2 }}
+                    className="relative pl-12 border-l border-white/10"
+                  >
+                    <span className="absolute -left-[19px] top-0 w-10 h-10 rounded-full bg-obsidian border border-gold-muted text-gold-muted flex items-center justify-center font-serif font-bold text-sm">
+                      {step.number}
+                    </span>
+                    <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
+                    <p className="text-gray-400 mb-4">{step.description}</p>
+                    <ul className="space-y-2">
+                      {step.features.map((feature) => (
+                        <li key={feature} className="flex items-center gap-2 text-sm text-gray-500">
+                          <CheckCircle size={14} className="text-gold-muted" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative hidden lg:block">
+              <div className="absolute inset-0 bg-gold-muted/5 rounded-full blur-[100px]" />
+              <EditorialCard className="relative z-10 p-8 border-gold-muted/20">
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-full bg-gold-muted/10 flex items-center justify-center shrink-0">
+                      <Shield className="text-gold-muted" size={24} />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-serif font-bold text-white mb-1">Join the Waitlist</h3>
+                      <p className="text-sm text-gray-400">Be the first to access India's premium Bitcoin lending platform.</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4 pt-4 border-t border-white/10">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-gold-muted/10 flex items-center justify-center">
+                        <CheckCircle size={16} className="text-gold-muted" />
+                      </div>
+                      <p className="text-sm text-gray-300">Priority Access to Beta</p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-gold-muted/10 flex items-center justify-center">
+                        <CheckCircle size={16} className="text-gold-muted" />
+                      </div>
+                      <p className="text-sm text-gray-300">Zero Tax Events</p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-gold-muted/10 flex items-center justify-center">
+                        <CheckCircle size={16} className="text-gold-muted" />
+                      </div>
+                      <p className="text-sm text-gray-300">Enterprise-Grade Security</p>
+                    </div>
+                  </div>
+
+                  <PremiumButton className="w-full mt-4" onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}>
+                    Join the Waitlist
+                  </PremiumButton>
                 </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-neopop-gradient">{feature.title}</h3>
-                  <p className="text-gray-400 text-sm">{feature.description}</p>
-                </div>
-              </NeopopCard>
-            ))}
+              </EditorialCard>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      {/* Security Section */}
+      <section id="security" className="py-24 bg-surface relative overflow-hidden">
+        <div className="container-mobile">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6">Uncompromising Security</h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Your assets are protected by institutional-grade infrastructure and multi-layered protocols.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <EditorialCard className="text-center p-8 hover:border-gold-muted/30 transition-colors">
+              <Shield className="w-12 h-12 text-gold-muted mx-auto mb-6" strokeWidth={1.5} />
+              <h3 className="text-xl font-bold text-white mb-3">MPC Technology</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Multi-Party Computation ensures no single point of failure. Private keys are split and never reconstructed.
+              </p>
+            </EditorialCard>
+            <EditorialCard className="text-center p-8 hover:border-gold-muted/30 transition-colors">
+              <Lock className="w-12 h-12 text-gold-muted mx-auto mb-6" strokeWidth={1.5} />
+              <h3 className="text-xl font-bold text-white mb-3">BitGo Custody</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                We partner with BitGo for institutional-grade qualified custody, ensuring your assets are protected by the industry leader.
+              </p>
+            </EditorialCard>
+            <EditorialCard className="text-center p-8 hover:border-gold-muted/30 transition-colors">
+              <CheckCircle className="w-12 h-12 text-gold-muted mx-auto mb-6" strokeWidth={1.5} />
+              <h3 className="text-xl font-bold text-white mb-3">Regular Audits</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Continuous security assessments and real-time monitoring by industry-leading security firms.
+              </p>
+            </EditorialCard>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <FAQ faqs={faqs} />
+      <FAQ />
 
       {/* Waitlist Form */}
       <WaitlistForm />
