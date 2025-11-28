@@ -89,9 +89,9 @@ export function Home() {
                 <span className="text-xs font-medium tracking-widest uppercase text-gray-300">Coming Soon to India</span>
               </div>
 
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold leading-[1.1] md:leading-[0.9] tracking-tight">
-                <span className="text-white block">Liquidity</span>
-                <span className="text-gold-muted block italic">Without</span>
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold leading-tight md:leading-[0.9] tracking-tight">
+                <span className="text-white block mb-2 md:mb-0">Liquidity</span>
+                <span className="text-gold-muted block italic mb-2 md:mb-0">Without</span>
                 <span className="text-white block">Selling.</span>
               </h1>
 
