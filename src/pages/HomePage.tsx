@@ -8,7 +8,7 @@ import { EditorialCard } from '@/components/EditorialCard'
 import { BitcoinPrice } from '@/components/BitcoinPrice'
 import { LoanCalculator } from '@/components/LoanCalculator'
 import { BitcoinComparison } from '@/components/BitcoinComparison'
-import { GoldBitcoin } from '@/components/GoldBitcoin'
+
 import { GoldSandBackground } from '@/components/GoldSandBackground'
 
 export function Home() {
