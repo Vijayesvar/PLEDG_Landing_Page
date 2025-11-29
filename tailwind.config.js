@@ -16,6 +16,10 @@ export default {
         },
         surface: '#1a1a1a',
 
+        // New Premium Palette
+        'deep-navy': '#020617',
+        'emerald-green': '#10b981',
+
         // Legacy/Semantic mapping
         primary: {
           400: '#c5a059', // Muted Gold

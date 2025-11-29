@@ -59,15 +59,15 @@ export function Header() {
         <div className="container-custom flex justify-between items-center">
           {/* Logo */}
           <Link to="/" className="flex items-center group">
-            <div className="relative mr-0.5">
+            <div className="relative">
               <div className="absolute inset-0 bg-gold-muted/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <PledgLogo className="h-10 w-10 relative z-10" />
+              <PledgLogo className="h-16 w-auto relative z-10" />
             </div>
             <span
-              className="text-3xl font-sans font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-[#bf953f] via-[#fcf6ba] via-[#b38728] via-[#fbf5b7] to-[#aa771c] -ml-1 mt-1"
+              className="text-3xl font-sans font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-[#bf953f] via-[#fcf6ba] via-[#b38728] via-[#fbf5b7] to-[#aa771c] ml-2"
               style={{ backgroundImage: 'linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%)' }}
             >
-              ledg
+              Pledg
             </span>
           </Link>
 

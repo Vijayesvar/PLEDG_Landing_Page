@@ -1,15 +1,17 @@
 import { motion } from 'framer-motion'
-import { ArrowRight, Shield, CheckCircle, Percent, Banknote, Lock, Zap, Info, Target, ChevronDown } from 'lucide-react'
+import { ArrowRight, Shield, CheckCircle, Percent, Banknote, Lock, Info, Target, Building2 } from 'lucide-react'
+import { HowItWorks } from '@/components/HowItWorks'
 
 import { WaitlistForm } from '@/components/WaitlistForm'
 import { FAQ } from '@/components/FAQ'
 import { PremiumButton } from '@/components/PremiumButton'
 import { EditorialCard } from '@/components/EditorialCard'
-import { BitcoinPrice } from '@/components/BitcoinPrice'
 import { LoanCalculator } from '@/components/LoanCalculator'
-import { BitcoinComparison } from '@/components/BitcoinComparison'
+
+import { TheMath } from '@/components/TheMath'
 
 import { GoldSandBackground } from '@/components/GoldSandBackground'
+import heroMockup from '../assets/hero-mockup.png'
 
 export function Home() {
   const pledgStandardFeatures = [
@@ -45,133 +47,134 @@ export function Home() {
     },
   ]
 
-  const steps = [
-    {
-      number: '01',
-      title: 'Apply',
-      description: 'Complete our simple application process, indicating your desired loan amount.',
-      features: ['Quick online application', 'No credit check required', 'Flexible tenure options'],
-    },
-    {
-      number: '02',
-      title: 'Secure',
-      description: 'Deposit your Bitcoin collateral into our secure, enterprise-grade wallet system.',
-      features: ['Institutional-grade security', 'Multi-party computation', 'Insurance-backed protection'],
-    },
-    {
-      number: '03',
-      title: 'Receive Funds',
-      description: 'Get your loan funds quickly disbursed to your preferred destination.',
-      features: ['Fast transfer to INR bank account', 'Secure bank transfer process', 'Transparent fee structure'],
-    },
-  ]
-
-
-
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-        {/* Background Elements */}
+      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute top-0 right-0 w-3/4 h-3/4 bg-gold-muted/5 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/4" />
-          <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-obsidian/50 rounded-full blur-[100px] -translate-x-1/4 translate-y-1/4" />
           <GoldSandBackground />
+          <div className="absolute inset-0 bg-gradient-to-b from-obsidian/80 via-obsidian/50 to-obsidian pointer-events-none" />
         </div>
 
         <div className="container-mobile relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="space-y-8 text-center lg:text-left"
-            >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
-                <span className="w-2 h-2 rounded-full bg-gold-muted animate-pulse" />
-                <span className="text-xs font-medium tracking-widest uppercase text-gray-300">Coming Soon to India</span>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-8">
+                <span className="w-2 h-2 rounded-full bg-gold-bright animate-pulse" />
+                <span className="text-xs font-bold tracking-widest uppercase text-gold-bright">Coming Soon to India</span>
               </div>
 
-              <h1 className="text-4xl md:text-7xl lg:text-8xl font-sans font-bold leading-tight md:leading-[0.9] tracking-tight">
-                <span className="text-white block mb-2 md:mb-0">Liquidity</span>
-                <span className="text-gold-muted block italic mb-2 md:mb-0">Without Selling</span>
-                <span className="text-white block">Bitcoin.</span>
+              <h1 className="text-4xl md:text-7xl lg:text-8xl font-sans font-bold leading-tight md:leading-[0.9] tracking-tight mb-8">
+                <span className="text-white block mb-2 md:mb-0">Keep Your Bitcoin.</span>
+                <span className="text-gold-muted block italic mb-2 md:mb-0">Spend the Cash.</span>
+                <span className="text-white block">Zero Tax Event.</span>
               </h1>
 
-              <p className="text-lg md:text-xl text-gray-400 font-sans leading-relaxed max-w-xl mx-auto lg:mx-0">
-                Unlock the value of your Bitcoin with instant INR loans.
-                Keep your assets, optimize your taxes, and maintain your long-term position.
+              <p className="text-lg md:text-xl text-gray-400 mb-10 max-w-xl leading-relaxed font-sans">
+                The smartest way for Indian investors to access liquidity. Pledg your Bitcoin for instant cash without selling or triggering a 30% tax event.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <PremiumButton
-                  size="lg"
+                  size="xl"
                   onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })}
                   className="group"
                 >
                   <span>Calculate Savings</span>
-                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="group-hover:translate-x-1 transition-transform" />
                 </PremiumButton>
+
                 <PremiumButton
                   variant="outline"
-                  size="lg"
+                  size="xl"
                   onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   How it Works
                 </PremiumButton>
               </div>
+            </div>
 
-              <div className="pt-8 flex items-center justify-center lg:justify-start gap-8 text-sm text-gray-500 font-medium">
-                <div className="flex items-center gap-2">
-                  <Shield size={16} className="text-gold-muted" />
-                  <span>Bank-Grade Security</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Zap size={16} className="text-gold-muted" />
-                  <span>24h Disbursement</span>
-                </div>
+            <div className="relative mt-12 lg:mt-0">
+              {/* 3D Mockup Container */}
+              <div className="relative z-10 w-full max-w-md mx-auto lg:max-w-full">
+                <div className="absolute inset-0 bg-gold-muted/20 blur-[100px] rounded-full" />
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="relative"
+                >
+                  <img
+                    src={heroMockup}
+                    alt="Pledg App Interface"
+                    className="w-full h-auto drop-shadow-2xl transform hover:scale-105 transition-transform duration-700"
+                  />
+
+                  {/* Floating Elements */}
+                  <motion.div
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute -top-8 -right-8 glass-panel p-4 rounded-2xl border border-white/20 hidden md:block"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+                        <CheckCircle className="text-green-500" size={20} />
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-400 uppercase tracking-wider">Loan Status</p>
+                        <p className="text-white font-bold">Approved</p>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    animate={{ y: [0, 10, 0] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                    className="absolute -bottom-8 -left-8 glass-panel p-4 rounded-2xl border border-white/20 hidden md:block"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-gold-muted/20 flex items-center justify-center">
+                        <Banknote className="text-gold-muted" size={20} />
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-400 uppercase tracking-wider">Disbursed</p>
+                        <p className="text-white font-bold">₹ 5,00,000</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
               </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="relative flex items-center justify-center lg:justify-start"
-            >
-              <div className="relative z-10 w-full max-w-sm">
-                <BitcoinPrice />
-              </div>
-
-              {/* Decorative elements */}
-              <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] border border-white/5 rounded-full animate-[spin_60s_linear_infinite]" />
-              <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border border-white/5 rounded-full animate-[spin_40s_linear_infinite_reverse]" />
-            </motion.div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-gray-600">
-          <ChevronDown size={24} />
+      {/* Social Proof / Secured By Section */}
+      <section className="py-10 border-y border-white/5 bg-white/2 backdrop-blur-sm">
+        <div className="container-mobile">
+          <p className="text-center text-xs text-gray-500 uppercase tracking-[0.2em] mb-8">
+            Secured by Institutional Custody
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+            <div className="flex items-center gap-2">
+              <Shield className="w-6 h-6 text-white" />
+              <span className="text-xl font-bold text-white tracking-tight">BitGo</span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Building2 className="w-6 h-6 text-white" />
+              <span className="text-xl font-bold text-white tracking-tight">Regulated NBFC</span>
+            </div>
+
+          </div>
         </div>
       </section>
 
       {/* Calculator Section */}
       <LoanCalculator />
 
-      {/* The Indian Bitcoin Dilemma */}
-      <section className="container-mobile py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-sans font-bold mb-4 text-white">The Indian Bitcoin Dilemma</h2>
-          <p className="text-gray-400 max-w-3xl mx-auto">Why traditional financial solutions don't work for Bitcoin holders in India</p>
-        </motion.div>
-
-        <BitcoinComparison />
-      </section>
+      {/* The Math / Dilemma Section */}
+      <TheMath />
 
       {/* Features Section */}
       <section id="features" className="py-24 bg-surface relative overflow-hidden">
@@ -212,98 +215,7 @@ export function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-24 relative">
-        <div className="container-mobile">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="mb-12"
-              >
-                <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 leading-tight">
-                  Seamless Access to <br />
-                  <span className="text-gold-gradient">Instant Liquidity</span>
-                </h2>
-                <p className="text-gray-400 text-lg">
-                  Three simple steps to unlock the value of your digital assets without tax events.
-                </p>
-              </motion.div>
-
-              <div className="space-y-12">
-                {steps.map((step, index) => (
-                  <motion.div
-                    key={step.number}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.2 }}
-                    className="relative pl-12 border-l border-white/10"
-                  >
-                    <span className="absolute -left-[19px] top-0 w-10 h-10 rounded-full bg-obsidian border border-gold-muted text-gold-muted flex items-center justify-center font-serif font-bold text-sm">
-                      {step.number}
-                    </span>
-                    <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
-                    <p className="text-gray-400 mb-4">{step.description}</p>
-                    <ul className="space-y-2">
-                      {step.features.map((feature) => (
-                        <li key={feature} className="flex items-center gap-2 text-sm text-gray-500">
-                          <CheckCircle size={14} className="text-gold-muted" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            <div className="relative hidden lg:block">
-              <div className="absolute inset-0 bg-gold-muted/5 rounded-full blur-[100px]" />
-              <EditorialCard className="relative z-10 p-8 border-gold-muted/20">
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-gold-muted/10 flex items-center justify-center shrink-0">
-                      <Shield className="text-gold-muted" size={24} />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-serif font-bold text-white mb-1">Join the Waitlist</h3>
-                      <p className="text-sm text-gray-400">Be the first to access India's premium Bitcoin lending platform.</p>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4 pt-4 border-t border-white/10">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-gold-muted/10 flex items-center justify-center">
-                        <CheckCircle size={16} className="text-gold-muted" />
-                      </div>
-                      <p className="text-sm text-gray-300">Priority Access to Beta</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-gold-muted/10 flex items-center justify-center">
-                        <CheckCircle size={16} className="text-gold-muted" />
-                      </div>
-                      <p className="text-sm text-gray-300">Zero Tax Events</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-gold-muted/10 flex items-center justify-center">
-                        <CheckCircle size={16} className="text-gold-muted" />
-                      </div>
-                      <p className="text-sm text-gray-300">Enterprise-Grade Security</p>
-                    </div>
-                  </div>
-
-                  <PremiumButton className="w-full mt-4" onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}>
-                    Join the Waitlist
-                  </PremiumButton>
-                </div>
-              </EditorialCard>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
+      <HowItWorks />
 
       {/* Security Section */}
       <section id="security" className="py-24 bg-surface relative overflow-hidden">

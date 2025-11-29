@@ -86,12 +86,16 @@ export function WaitlistForm() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold-muted/30 bg-gold-muted/10 backdrop-blur-sm mb-6">
+            <span className="w-2 h-2 rounded-full bg-gold-muted animate-pulse" />
+            <span className="text-xs font-bold tracking-widest uppercase text-gold-muted">Limited Time Offer</span>
+          </div>
           <h2 className="text-3xl md:text-5xl font-sans font-bold mb-6">
-            <span className="text-white">Join the</span>{' '}
-            <span className="text-gold-gradient">Exclusive Waitlist</span>
+            <span className="text-white">Get Early Access + </span>
+            <span className="text-gold-gradient">0% Processing Fee</span>
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto font-sans leading-relaxed">
-            Secure your spot for early access. Limited availability for the initial launch cohort.
+            Join the waitlist today and waive all processing fees on your first loan.
           </p>
         </motion.div>
 

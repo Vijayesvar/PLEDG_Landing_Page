@@ -108,7 +108,7 @@ export function BitcoinStats() {
       title: 'Market Cap',
       value: loading ? '...' : formatLargeNumber(stats?.marketCap || 0),
       subtitle: 'Total value',
-      color: 'text-blue-400'
+      color: 'text-gold-muted'
     },
     {
       icon: Users,

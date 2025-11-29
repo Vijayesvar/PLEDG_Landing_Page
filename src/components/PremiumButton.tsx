@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 
 interface PremiumButtonProps extends HTMLMotionProps<"button"> {
     variant?: 'primary' | 'outline' | 'ghost'
-    size?: 'sm' | 'md' | 'lg'
+    size?: 'sm' | 'md' | 'lg' | 'xl'
     loading?: boolean
     children: React.ReactNode
 }
@@ -22,6 +22,7 @@ export const PremiumButton = React.forwardRef<HTMLButtonElement, PremiumButtonPr
             sm: 'px-4 py-2 text-xs',
             md: 'px-6 py-3 text-sm',
             lg: 'px-8 py-4 text-base',
+            xl: 'px-10 py-5 text-lg',
         }
 
         return (
