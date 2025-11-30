@@ -149,27 +149,6 @@ export function Home() {
         </div>
       </section>
 
-      {/* Social Proof / Secured By Section */}
-      <section className="py-10 border-y border-white/5 bg-white/2 backdrop-blur-sm">
-        <div className="container-mobile">
-          <p className="text-center text-xs text-gray-500 uppercase tracking-[0.2em] mb-8">
-            Secured by Institutional Custody
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-            <div className="flex items-center gap-2">
-              <Shield className="w-6 h-6 text-white" />
-              <span className="text-xl font-bold text-white tracking-tight">BitGo</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Building2 className="w-6 h-6 text-white" />
-              <span className="text-xl font-bold text-white tracking-tight">Regulated NBFC</span>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
       {/* Calculator Section */}
       <LoanCalculator />
 
@@ -216,6 +195,56 @@ export function Home() {
 
       {/* How It Works Section */}
       <HowItWorks />
+
+      {/* Social Proof / Secured By Section */}
+      <section className="py-12 border-y border-white/5 bg-black/40 backdrop-blur-sm relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 animate-shimmer" />
+        <div className="container-mobile relative z-10">
+          <p className="text-center text-xs text-gray-500 uppercase tracking-[0.3em] mb-10 font-medium">
+            Trusted Partners
+          </p>
+
+          <div className="flex flex-col md:flex-row justify-center gap-8 md:gap-16">
+            {/* BitGo Card */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="group relative"
+            >
+              <div className="absolute inset-0 bg-[#00b4c5]/20 blur-[40px] rounded-full opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
+              <div className="relative flex items-center gap-4 px-8 py-4 bg-surface/80 backdrop-blur-xl border border-white/10 rounded-2xl hover:border-[#00b4c5]/30 transition-all duration-300 shadow-2xl shadow-black/50 min-w-[280px]">
+                <div className="w-10 h-10 rounded-full bg-[#00b4c5]/10 flex items-center justify-center border border-[#00b4c5]/20 group-hover:scale-110 transition-transform duration-300">
+                  <Shield className="w-5 h-5 text-[#00b4c5]" fill="currentColor" fillOpacity={0.2} />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-2xl font-sans font-bold text-white tracking-tight leading-none">BitGo</span>
+                  <span className="text-[10px] text-[#00b4c5] uppercase tracking-widest font-bold mt-1">Qualified Custodian</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* NBFC Card */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="group relative"
+            >
+              <div className="absolute inset-0 bg-gold-muted/20 blur-[40px] rounded-full opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
+              <div className="relative flex items-center gap-4 px-8 py-4 bg-surface/80 backdrop-blur-xl border border-white/10 rounded-2xl hover:border-gold-muted/30 transition-all duration-300 shadow-2xl shadow-black/50 min-w-[280px]">
+                <div className="w-10 h-10 rounded-full bg-gold-muted/10 flex items-center justify-center border border-gold-muted/20 group-hover:scale-110 transition-transform duration-300">
+                  <Building2 className="w-5 h-5 text-gold-muted" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-2xl font-sans font-bold text-white tracking-tight leading-none">Regulated NBFC</span>
+                  <span className="text-[10px] text-gold-muted uppercase tracking-widest font-bold mt-1">RBI Compliant Partner</span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       {/* Security Section */}
       <section id="security" className="py-24 bg-surface relative overflow-hidden">

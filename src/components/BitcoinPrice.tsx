@@ -1,58 +1,22 @@
-import { useState, useEffect } from 'react'
 import { TrendingUp, TrendingDown, RefreshCw } from 'lucide-react'
-import axios from 'axios'
 import { EditorialCard } from './EditorialCard'
 import { formatCurrency, cn } from '@/lib/utils'
 import { GoldBitcoin } from './GoldBitcoin'
-
-interface BitcoinData {
-    price: number
-    change24h: number
-    lastUpdated: string
-}
+import { useBitcoinPrice } from '@/hooks/useBitcoinPrice'
 
 interface BitcoinPriceProps {
     className?: string
 }
 
 export function BitcoinPrice({ className }: BitcoinPriceProps) {
-    const [data, setData] = useState<BitcoinData | null>(null)
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(false)
-
-    const fetchPrice = async () => {
-        try {
-            setLoading(true)
-            const WORKER_URL = "https://lucky-wave-c3fe.wolf07279.workers.dev"
-            const response = await axios.get(`${WORKER_URL}?t=${Date.now()}`)
-            const btc = response.data.bitcoin
-
-            setData({
-                price: btc.inr,
-                change24h: btc.change24h,
-                lastUpdated: new Date().toLocaleTimeString()
-            })
-            setError(false)
-        } catch (err) {
-            console.error('Failed to fetch Bitcoin price:', err)
-            setError(true)
-        } finally {
-            setLoading(false)
-        }
-    }
-
-    useEffect(() => {
-        fetchPrice()
-        const interval = setInterval(fetchPrice, 60000) // Update every minute
-        return () => clearInterval(interval)
-    }, [])
+    const { data, loading, error, refetch } = useBitcoinPrice()
 
     if (error) {
         return (
             <EditorialCard className={cn("w-full max-w-sm mx-auto backdrop-blur-md bg-obsidian/80 border-red-500/20", className)}>
                 <div className="flex items-center justify-between text-red-400">
                     <span>Unavailable</span>
-                    <button onClick={fetchPrice} className="p-2 hover:bg-white/5 rounded-full transition-colors">
+                    <button onClick={refetch} className="p-2 hover:bg-white/5 rounded-full transition-colors">
                         <RefreshCw size={16} />
                     </button>
                 </div>

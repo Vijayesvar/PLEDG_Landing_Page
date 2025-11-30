@@ -1,5 +1,6 @@
-import { PledgLogo } from './PledgLogo'
+import { PledgIcon } from './PledgIcon'
 import { Twitter, MessageCircle, Users } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export function Footer() {
   return (
@@ -8,15 +9,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
           <div className="col-span-1">
-            <div className="flex items-center mb-6">
-              <PledgLogo className="h-10 w-10" />
-              <span
-                className="text-3xl font-sans font-bold tracking-tighter text-transparent bg-clip-text ml-2"
-                style={{ backgroundImage: 'linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%)' }}
-              >
-                Pledg
+            <Link to="/" className="flex items-center gap-2 group mb-6">
+              <PledgIcon className="h-10 w-10" />
+              <span className="text-xl font-serif font-bold tracking-widest text-white group-hover:text-gold-muted transition-colors">
+                PLEDG
               </span>
-            </div>
+            </Link>
             <p className="text-gray-400 mb-6 text-sm leading-relaxed">
               Unlock the value of your Bitcoin without selling. Secure, flexible loans backed by your Bitcoin assets.
             </p>
@@ -40,7 +38,6 @@ export function Footer() {
               <li><a href="#" className="hover:text-primary-400 transition-colors">Home</a></li>
               <li><a href="#features" className="hover:text-primary-400 transition-colors">Features</a></li>
               <li><a href="#how-it-works" className="hover:text-primary-400 transition-colors">How It Works</a></li>
-
             </ul>
           </div>
 

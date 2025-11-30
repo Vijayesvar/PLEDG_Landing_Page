@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Menu, X, ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { PledgLogo } from './PledgLogo'
+import { PledgIcon } from './PledgIcon'
 import { PremiumButton } from './PremiumButton'
 
 export function Header() {
@@ -58,16 +58,13 @@ export function Header() {
       >
         <div className="container-custom flex justify-between items-center">
           {/* Logo */}
-          <Link to="/" className="flex items-center group">
+          <Link to="/" className="flex items-center gap-3 group">
             <div className="relative">
               <div className="absolute inset-0 bg-gold-muted/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <PledgLogo className="h-16 w-auto relative z-10" />
+              <PledgIcon className="h-12 w-12 md:h-14 md:w-14 relative z-10" />
             </div>
-            <span
-              className="text-3xl font-sans font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-[#bf953f] via-[#fcf6ba] via-[#b38728] via-[#fbf5b7] to-[#aa771c] ml-2"
-              style={{ backgroundImage: 'linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%)' }}
-            >
-              Pledg
+            <span className="text-2xl font-serif font-bold tracking-widest text-white group-hover:text-gold-muted transition-colors duration-300">
+              PLEDG
             </span>
           </Link>
 

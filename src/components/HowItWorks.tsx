@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Bitcoin, Lock, Banknote, ArrowRight, ShieldCheck, Building2 } from 'lucide-react'
+import { Bitcoin, Lock, Banknote, ArrowRight } from 'lucide-react'
 
 export function HowItWorks() {
     return (
@@ -94,23 +94,7 @@ export function HowItWorks() {
                     </div>
                 </div>
 
-                {/* Trust Badges */}
-                <div className="border-t border-white/5 pt-12">
-                    <p className="text-center text-sm text-gray-500 uppercase tracking-widest mb-8">Trusted Partners</p>
-                    <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-                        {/* BitGo Placeholder */}
-                        <div className="flex items-center gap-3 group">
-                            <ShieldCheck className="w-8 h-8 text-white group-hover:text-gold-muted transition-colors" />
-                            <span className="text-xl font-bold text-white group-hover:text-gold-muted transition-colors">BitGo</span>
-                        </div>
 
-                        {/* NBFC Placeholder */}
-                        <div className="flex items-center gap-3 group">
-                            <Building2 className="w-8 h-8 text-white group-hover:text-gold-muted transition-colors" />
-                            <span className="text-xl font-bold text-white group-hover:text-gold-muted transition-colors">Regulated NBFC</span>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
     )
