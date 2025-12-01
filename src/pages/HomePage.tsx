@@ -77,19 +77,19 @@ export function Home() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <PremiumButton
                   size="xl"
-                  onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
                   className="group"
                 >
-                  <span>Calculate Savings</span>
+                  <span>Join Waitlist</span>
                   <ArrowRight className="group-hover:translate-x-1 transition-transform" />
                 </PremiumButton>
 
                 <PremiumButton
                   variant="outline"
                   size="xl"
-                  onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  How it Works
+                  Calculate Savings
                 </PremiumButton>
               </div>
             </div>
@@ -149,8 +149,7 @@ export function Home() {
         </div>
       </section>
 
-      {/* Calculator Section */}
-      <LoanCalculator />
+
 
       {/* The Math / Dilemma Section */}
       <TheMath />
@@ -281,6 +280,9 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      {/* Calculator Section */}
+      <LoanCalculator />
 
       {/* FAQ Section */}
       <FAQ />

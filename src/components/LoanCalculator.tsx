@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { formatCurrency, formatNumber } from '@/lib/utils'
 import { useBitcoinPrice } from '@/hooks/useBitcoinPrice'
-import { TrendingUp, ShieldCheck, Wallet, AlertTriangle } from 'lucide-react'
+import { TrendingUp, Wallet, Plus, Minus } from 'lucide-react'
 
 interface LoanCalculation {
     loanAmount: number
@@ -23,10 +23,10 @@ export function LoanCalculator() {
     const { data: btcData, loading: btcLoading } = useBitcoinPrice()
 
     // Inputs
-    const [loanAmount, setLoanAmount] = useState<number>(500000)
+    const [loanAmount, setLoanAmount] = useState<number>(50000)
     const [loanTerm, setLoanTerm] = useState<number>(12)
-    const [interestRate, setInterestRate] = useState<number>(13.5)
-    const [capitalGains, setCapitalGains] = useState<number>(300000)
+    const [interestRate, setInterestRate] = useState<number>(14.5)
+    const [capitalGains, setCapitalGains] = useState<number>(0)
 
     const [calculation, setCalculation] = useState<LoanCalculation | null>(null)
 
@@ -187,22 +187,30 @@ export function LoanCalculator() {
                                     </div>
                                     <div>
                                         <label className="block text-xs text-gray-500 mb-2">Interest (APR)</label>
-                                        <div className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white flex justify-between items-center transition-colors hover:bg-white/10 focus-within:border-gold-muted focus-within:bg-white/10">
-                                            <input
-                                                type="number"
-                                                min="13.5"
-                                                step="0.1"
-                                                value={interestRate}
-                                                onChange={(e) => {
-                                                    const val = parseFloat(e.target.value)
-                                                    if (!isNaN(val)) setInterestRate(val)
-                                                }}
-                                                onBlur={() => {
-                                                    if (interestRate < 13.5) setInterestRate(13.5)
-                                                }}
-                                                className="bg-transparent border-none outline-none font-mono w-full text-white placeholder-gray-500 text-right pr-1"
-                                            />
-                                            <span className="text-gray-500 text-xs">%</span>
+                                        <div className="flex items-center gap-2">
+                                            <button
+                                                onClick={() => setInterestRate(prev => Math.max(14.5, prev - 0.5))}
+                                                disabled={interestRate <= 14.5}
+                                                className="w-10 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl text-white hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                            >
+                                                <Minus size={16} />
+                                            </button>
+                                            <div className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white flex justify-between items-center transition-colors hover:bg-white/10 cursor-default">
+                                                <input
+                                                    type="number"
+                                                    value={interestRate}
+                                                    readOnly
+                                                    className="bg-transparent border-none outline-none font-mono w-full text-white placeholder-gray-500 text-center cursor-default"
+                                                />
+                                                <span className="text-gray-500 text-xs">%</span>
+                                            </div>
+                                            <button
+                                                onClick={() => setInterestRate(prev => Math.min(25, prev + 0.5))}
+                                                disabled={interestRate >= 25}
+                                                className="w-10 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl text-white hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                            >
+                                                <Plus size={16} />
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -263,139 +271,59 @@ export function LoanCalculator() {
                         className="lg:col-span-7 space-y-6"
                     >
                         {calculation && (
-                            <>
-                                {/* 3. Sell vs Borrow Analysis Card */}
-                                <div className="glass-panel rounded-3xl p-8 border border-white/5 bg-[#0A0A0A] shadow-2xl relative overflow-hidden">
-                                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 via-gold-muted to-emerald-500 opacity-50" />
+                            <div className="glass-panel rounded-3xl p-8 border border-white/5 bg-[#0A0A0A] shadow-2xl relative overflow-hidden flex flex-col h-full">
+                                {/* Header: Net Benefit */}
+                                <div className="text-center mb-10">
+                                    <p className="text-sm font-bold uppercase tracking-widest text-gray-500 mb-2">
+                                        {calculation.netBenefit >= 0 ? 'Potential Savings' : 'Net Cost'}
+                                    </p>
+                                    <div className={`text-5xl md:text-6xl font-mono font-bold tracking-tight ${calculation.netBenefit >= 0 ? 'text-emerald-400' : 'text-orange-400'}`}>
+                                        {formatCurrency(Math.abs(calculation.netBenefit))}
+                                    </div>
+                                    <p className="text-sm text-gray-400 mt-3">
+                                        {calculation.netBenefit >= 0
+                                            ? 'saved by borrowing instead of selling'
+                                            : 'additional cost compared to selling'}
+                                    </p>
+                                </div>
 
-                                    <h3 className="text-xl font-serif font-bold text-white mb-8 text-center">
-                                        Selling BTC <span className="text-gray-600 mx-2 text-sm font-sans">vs</span> Borrowing with Pledg
-                                    </h3>
-
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
-                                        {/* Divider for desktop */}
-                                        <div className="hidden md:block absolute top-0 bottom-0 left-1/2 w-px bg-white/5 -translate-x-1/2" />
-
-                                        {/* Left: Selling */}
-                                        <div className="space-y-6">
-                                            <div className="flex items-center gap-2 mb-2">
-                                                <div className="w-2 h-2 rounded-full bg-red-500" />
-                                                <span className="text-xs font-bold uppercase tracking-widest text-gray-400">If You Sell</span>
-                                            </div>
-
-                                            <div className="space-y-4">
-                                                <div className="bg-white/5 rounded-xl p-4 border border-white/5">
-                                                    <p className="text-xs text-gray-500 mb-1">Estimated Capital Gain</p>
-                                                    <p className="text-lg font-mono text-white">{formatCurrency(capitalGains)}</p>
-                                                </div>
-
-                                                <div className="bg-red-500/10 rounded-xl p-4 border border-red-500/20">
-                                                    <div className="flex justify-between items-start mb-1">
-                                                        <p className="text-xs text-red-400 font-bold">Tax Payable</p>
-                                                        <span className="text-[10px] text-red-400/70 bg-red-500/10 px-1.5 py-0.5 rounded">31.2%</span>
-                                                    </div>
-                                                    <p className="text-2xl font-mono text-white">{formatCurrency(calculation.taxPayable)}</p>
-                                                    <p className="text-[10px] text-red-300/60 mt-2">
-                                                        You lose BTC exposure immediately.
-                                                    </p>
-                                                </div>
-                                            </div>
+                                {/* Body: Comparison */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                                    {/* Cost of Selling */}
+                                    <div className="bg-red-500/5 rounded-2xl p-6 border border-red-500/10">
+                                        <div className="flex items-center gap-2 mb-4">
+                                            <div className="w-2 h-2 rounded-full bg-red-500" />
+                                            <span className="text-xs font-bold uppercase tracking-widest text-red-400">Cost of Selling</span>
                                         </div>
-
-                                        {/* Right: Borrowing */}
-                                        <div className="space-y-6">
-                                            <div className="flex items-center gap-2 mb-2">
-                                                <div className="w-2 h-2 rounded-full bg-gold-muted" />
-                                                <span className="text-xs font-bold uppercase tracking-widest text-gray-400">If You Borrow</span>
-                                            </div>
-
-                                            <div className="space-y-4">
-                                                <div className="bg-white/5 rounded-xl p-4 border border-white/5">
-                                                    <p className="text-xs text-gray-500 mb-1">Loan Amount Received</p>
-                                                    <p className="text-lg font-mono text-white">{formatCurrency(calculation.loanAmount)}</p>
-                                                </div>
-
-                                                <div className="bg-gold-muted/10 rounded-xl p-4 border border-gold-muted/20">
-                                                    <div className="flex justify-between items-start mb-1">
-                                                        <p className="text-xs text-gold-muted font-bold">Total Interest</p>
-                                                        <span className="text-[10px] text-gold-muted/70 bg-gold-muted/10 px-1.5 py-0.5 rounded">{loanTerm} Mo @ {interestRate}%</span>
-                                                    </div>
-                                                    <p className="text-2xl font-mono text-white">{formatCurrency(calculation.totalInterest)}</p>
-                                                    <p className="text-[10px] text-gold-muted/60 mt-2">
-                                                        You keep your BTC & upside.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <p className="text-3xl font-mono font-bold text-white mb-1">{formatCurrency(calculation.taxPayable)}</p>
+                                        <p className="text-xs text-gray-500">Tax Payable (31.2%)</p>
                                     </div>
 
-                                    {/* Net Benefit Result */}
-                                    <div className="mt-8 pt-8 border-t border-white/5">
-                                        <div className={`rounded-2xl p-6 border ${calculation.netBenefit >= 0 ? 'bg-emerald-900/20 border-emerald-500/30' : 'bg-orange-900/20 border-orange-500/30'}`}>
-                                            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                                                <div>
-                                                    <p className={`text-sm font-bold uppercase tracking-wider mb-1 ${calculation.netBenefit >= 0 ? 'text-emerald-400' : 'text-orange-400'}`}>
-                                                        {calculation.netBenefit >= 0 ? 'Net Benefit of Borrowing' : 'Cost Difference'}
-                                                    </p>
-                                                    <p className="text-xs text-gray-400">
-                                                        {calculation.netBenefit >= 0
-                                                            ? 'Tax Saved vs Interest Paid'
-                                                            : 'Interest Cost exceeds Tax Savings by'}
-                                                    </p>
-                                                </div>
-                                                <div className="text-right min-w-[200px]">
-                                                    <span className={`text-4xl font-mono font-bold tabular-nums tracking-tight ${calculation.netBenefit >= 0 ? 'text-white' : 'text-orange-200'}`}>
-                                                        {formatCurrency(Math.abs(calculation.netBenefit))}
-                                                    </span>
-                                                </div>
-                                            </div>
+                                    {/* Cost of Borrowing */}
+                                    <div className="bg-gold-muted/5 rounded-2xl p-6 border border-gold-muted/10">
+                                        <div className="flex items-center gap-2 mb-4">
+                                            <div className="w-2 h-2 rounded-full bg-gold-muted" />
+                                            <span className="text-xs font-bold uppercase tracking-widest text-gold-muted">Cost of Borrowing</span>
                                         </div>
-                                        <p className="text-[10px] text-gray-600 text-center mt-4 max-w-lg mx-auto">
-                                            * Comparison uses a flat 30% tax rate + 4% cess (effective 31.2%). Actual tax treatment may vary based on your personal situation.
-                                        </p>
+                                        <p className="text-3xl font-mono font-bold text-white mb-1">{formatCurrency(calculation.totalInterest)}</p>
+                                        <p className="text-xs text-gray-500">Total Interest ({interestRate}%)</p>
                                     </div>
                                 </div>
 
-                                {/* 4. Risk & Collateral Stats */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="bg-[#111] rounded-2xl p-6 border border-white/5">
-                                        <div className="flex items-center gap-2 mb-4">
-                                            <ShieldCheck size={16} className="text-emerald-500" />
-                                            <p className="text-xs text-gray-500 uppercase tracking-wider font-bold">Collateral Required</p>
-                                        </div>
-                                        <div className="flex flex-col">
-                                            <span className="text-2xl font-bold text-white mb-1">{formatCurrency(calculation.collateralRequired)}</span>
-                                            <span className="text-sm text-gray-400 font-mono">
-                                                ≈ {calculation.collateralRequiredBTC.toFixed(4)} BTC
-                                            </span>
-                                        </div>
+                                {/* Footer: Key Metrics */}
+                                <div className="mt-auto pt-8 border-t border-white/5 grid grid-cols-2 gap-8">
+                                    <div>
+                                        <p className="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Collateral Required</p>
+                                        <p className="text-xl font-bold text-white">{calculation.collateralRequiredBTC.toFixed(4)} BTC</p>
+                                        <p className="text-xs text-gray-600">≈ {formatCurrency(calculation.collateralRequired)}</p>
                                     </div>
-
-                                    <div className="bg-[#111] rounded-2xl p-6 border border-white/5">
-                                        <div className="flex items-center gap-2 mb-4">
-                                            <AlertTriangle size={16} className="text-orange-500" />
-                                            <p className="text-xs text-gray-500 uppercase tracking-wider font-bold">Risk Management</p>
-                                        </div>
-                                        <div className="space-y-4">
-                                            <div>
-                                                <p className="text-[10px] text-gray-500 uppercase mb-1">Margin Call (70% LTV)</p>
-                                                <span className="text-xl font-bold text-white block">{formatCurrency(calculation.marginCallValue)}</span>
-                                                <span className="text-xs text-orange-400">
-                                                    @ {formatCurrency(calculation.marginCallPrice)} / BTC
-                                                </span>
-                                            </div>
-                                            <div className="h-px bg-white/5" />
-                                            <div>
-                                                <p className="text-[10px] text-gray-500 uppercase mb-1">Liquidation (83.33% LTV)</p>
-                                                <span className="text-xl font-bold text-red-500 block">{formatCurrency(calculation.liquidationValue)}</span>
-                                                <span className="text-xs text-red-400/70">
-                                                    *Only partial liquidation takes place
-                                                </span>
-                                            </div>
-                                        </div>
+                                    <div className="text-right">
+                                        <p className="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Liquidation Price</p>
+                                        <p className="text-xl font-bold text-red-400">{formatCurrency(calculation.liquidationPrice)}</p>
+                                        <p className="text-xs text-gray-600">Safe until BTC drops to this</p>
                                     </div>
                                 </div>
-                            </>
+                            </div>
                         )}
                     </motion.div>
                 </div>

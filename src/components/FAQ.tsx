@@ -21,10 +21,7 @@ export function FAQ({ faqs: propFaqs }: FAQProps) {
 
   // Indian-centric FAQs
   const defaultFaqs: FAQItem[] = [
-    {
-      question: 'Is taking a loan against Bitcoin legal in India?',
-      answer: 'Yes, absolutely. Holding Bitcoin and using it as collateral is not banned in India. You are simply using your digital asset to secure a loan, similar to a gold loan or loan against securities. Pledg operates in full compliance with Indian regulations.',
-    },
+
     {
       question: 'How does this help me save on the 30% Bitcoin tax?',
       answer: 'In India, a flat 30% tax + 4% cess is applicable on the "transfer" (sale) of virtual digital assets. When you take a loan, you are NOT selling your Bitcoin; you are merely pledging it. Since no sale occurs, no capital gains tax event is triggered, allowing you to access liquidity without the heavy tax burden.',
@@ -59,7 +56,7 @@ export function FAQ({ faqs: propFaqs }: FAQProps) {
     },
     {
       question: 'What is the interest rate and tenure?',
-      answer: 'Our interest rates start at 13.5% APR. You can choose a flexible tenure ranging from 1 to 12 months. There are no prepayment penalties, so you can close the loan early whenever you wish.',
+      answer: 'Our interest rates start at 14.5% APR. You can choose a flexible tenure ranging from 1 to 12 months. There are no prepayment penalties, so you can close the loan early whenever you wish.',
     },
   ]
 
