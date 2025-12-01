@@ -2,7 +2,9 @@ import { useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { formatCurrency, formatNumber } from '@/lib/utils'
 import { useBitcoinPrice } from '@/hooks/useBitcoinPrice'
-import { TrendingUp, Wallet, Plus, Minus } from 'lucide-react'
+import { Wallet } from 'lucide-react'
+import { CalculatorGuide } from './CalculatorGuide'
+import { CalculatorResults } from './CalculatorResults'
 
 interface LoanCalculation {
     loanAmount: number
@@ -25,10 +27,11 @@ export function LoanCalculator() {
     // Inputs
     const [loanAmount, setLoanAmount] = useState<number>(50000)
     const [loanTerm, setLoanTerm] = useState<number>(12)
-    const [interestRate, setInterestRate] = useState<number>(14.5)
+    const [interestRate] = useState<number>(14.5)
     const [capitalGains, setCapitalGains] = useState<number>(0)
 
     const [calculation, setCalculation] = useState<LoanCalculation | null>(null)
+    const [showResults, setShowResults] = useState(false)
 
     const calculateLoan = useCallback(() => {
         const currentBtcPrice = btcData?.price || 8500000
@@ -95,6 +98,10 @@ export function LoanCalculator() {
         calculateLoan()
     }, [calculateLoan])
 
+    const handleCalculate = () => {
+        setShowResults(true)
+    }
+
     return (
         <section id="calculator" className="py-24 relative overflow-hidden">
             {/* Background Elements */}
@@ -110,7 +117,7 @@ export function LoanCalculator() {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl md:text-6xl font-sans font-bold mb-6 tracking-tight">
+                    <h2 className="text-4xl md:text-6xl font-serif font-bold mb-6 tracking-tight">
                         <span className="text-white">Sell vs </span>
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-bright to-gold-muted">Borrow</span>
                     </h2>
@@ -123,15 +130,15 @@ export function LoanCalculator() {
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
                     {/* INPUTS PANEL */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="lg:col-span-5 flex flex-col gap-6"
+                        className="lg:col-span-5 flex flex-col"
                     >
-                        <div className="glass-panel rounded-3xl p-8 space-y-8 border border-white/5 bg-obsidian/60 backdrop-blur-xl shadow-2xl shadow-black/50">
+                        <div className="glass-panel rounded-3xl p-8 space-y-8 border border-white/5 bg-obsidian/60 backdrop-blur-xl shadow-2xl shadow-black/50 h-full flex flex-col">
 
                             {/* 1. Liquidity Inputs */}
                             <div className="space-y-6">
@@ -142,11 +149,7 @@ export function LoanCalculator() {
                                 {/* Loan Amount */}
                                 <div className="space-y-4">
                                     <div className="flex justify-between items-end">
-                                        <label className="text-sm text-gray-400">Loan Amount</label>
-                                        <div className="text-right min-w-[180px]">
-                                            <span className="text-white font-mono font-bold text-2xl block tabular-nums tracking-tight">{formatNumber(loanAmount)}</span>
-                                            <span className="text-[10px] text-gray-500 uppercase">INR</span>
-                                        </div>
+                                        <label className="text-xs font-bold uppercase tracking-widest text-gold-muted">Loan Amount (₹)</label>
                                     </div>
                                     <div className="relative h-2 bg-white/5 rounded-full">
                                         <input
@@ -163,21 +166,55 @@ export function LoanCalculator() {
                                             style={{ width: `${((loanAmount - 50000) / (5000000 - 50000)) * 100}%` }}
                                         />
                                         <div
-                                            className="absolute h-4 w-4 bg-white rounded-full shadow-lg top-1/2 -translate-y-1/2 -ml-2 pointer-events-none"
+                                            className="absolute h-4 w-4 bg-gold-bright rounded-full shadow-lg top-1/2 -translate-y-1/2 -ml-2 pointer-events-none"
                                             style={{ left: `${((loanAmount - 50000) / (5000000 - 50000)) * 100}%` }}
                                         />
+                                    </div>
+                                    <div className="text-3xl font-serif font-bold text-white">
+                                        {formatNumber(loanAmount)}
+                                    </div>
+                                </div>
+
+
+                                {/* Capital Gains Input */}
+                                <div className="space-y-4 pt-4">
+                                    <div className="flex justify-between items-end">
+                                        <label className="text-xs font-bold uppercase tracking-widest text-gold-muted">Estimated Capital Gains (₹)</label>
+                                    </div>
+
+                                    <div className="relative h-2 bg-white/5 rounded-full">
+                                        <input
+                                            type="range"
+                                            min="0"
+                                            max="5000000"
+                                            step="5000"
+                                            value={capitalGains}
+                                            onChange={(e) => setCapitalGains(Number(e.target.value))}
+                                            className="absolute w-full h-full opacity-0 cursor-pointer z-10"
+                                        />
+                                        <div
+                                            className="absolute h-full bg-gradient-to-r from-gold-muted to-gold-bright rounded-full"
+                                            style={{ width: `${(capitalGains / 5000000) * 100}%` }}
+                                        />
+                                        <div
+                                            className="absolute h-4 w-4 bg-gold-bright rounded-full shadow-lg top-1/2 -translate-y-1/2 -ml-2 pointer-events-none"
+                                            style={{ left: `${(capitalGains / 5000000) * 100}%` }}
+                                        />
+                                    </div>
+                                    <div className="text-3xl font-serif font-bold text-white">
+                                        {formatNumber(capitalGains)}
                                     </div>
                                 </div>
 
                                 {/* Term & Interest */}
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-2 gap-8 pt-4">
                                     <div>
-                                        <label className="block text-xs text-gray-500 mb-2">Tenure</label>
-                                        <div className="relative">
+                                        <label className="block text-[10px] uppercase tracking-widest text-gray-500 mb-2">Term (Months)</label>
+                                        <div className="relative border-b border-white/10 pb-2">
                                             <select
                                                 value={loanTerm}
                                                 onChange={(e) => setLoanTerm(Number(e.target.value))}
-                                                className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-gold-muted transition-colors appearance-none cursor-pointer hover:bg-white/10"
+                                                className="w-full bg-transparent text-xl font-serif text-white focus:outline-none appearance-none cursor-pointer"
                                             >
                                                 {Array.from({ length: 12 }, (_, i) => i + 1).map(m => (
                                                     <option key={m} value={m} className="bg-obsidian text-white">{m} Months</option>
@@ -186,145 +223,50 @@ export function LoanCalculator() {
                                         </div>
                                     </div>
                                     <div>
-                                        <label className="block text-xs text-gray-500 mb-2">Interest (APR)</label>
-                                        <div className="flex items-center gap-2">
-                                            <button
-                                                onClick={() => setInterestRate(prev => Math.max(14.5, prev - 0.5))}
-                                                disabled={interestRate <= 14.5}
-                                                className="w-10 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl text-white hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                                            >
-                                                <Minus size={16} />
-                                            </button>
-                                            <div className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white flex justify-between items-center transition-colors hover:bg-white/10 cursor-default">
-                                                <input
-                                                    type="number"
-                                                    value={interestRate}
-                                                    readOnly
-                                                    className="bg-transparent border-none outline-none font-mono w-full text-white placeholder-gray-500 text-center cursor-default"
-                                                />
-                                                <span className="text-gray-500 text-xs">%</span>
-                                            </div>
-                                            <button
-                                                onClick={() => setInterestRate(prev => Math.min(25, prev + 0.5))}
-                                                disabled={interestRate >= 25}
-                                                className="w-10 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl text-white hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                                            >
-                                                <Plus size={16} />
-                                            </button>
+                                        <label className="block text-[10px] uppercase tracking-widest text-gray-500 mb-2">Interest (APR)</label>
+                                        <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                                            <input
+                                                type="number"
+                                                value={interestRate}
+                                                readOnly
+                                                className="bg-transparent border-none outline-none font-serif text-xl text-white w-full"
+                                            />
+                                            <span className="text-gray-500 text-sm">%</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="h-px bg-white/5 w-full" />
-
-                            {/* 2. Capital Gains Input */}
-                            <div className="space-y-4">
-                                <h3 className="text-xs uppercase tracking-widest text-emerald-400 font-bold flex items-center gap-2">
-                                    <TrendingUp size={14} /> Capital Gains
-                                </h3>
-
-                                <div>
-                                    <div className="flex justify-between items-end mb-4">
-                                        <label className="block text-sm text-gray-300">
-                                            If you sold this BTC today, how much profit would you make?
-                                        </label>
-                                        <div className="text-right min-w-[180px]">
-                                            <span className="text-white font-mono font-bold text-2xl block tabular-nums tracking-tight">{formatNumber(capitalGains)}</span>
-                                            <span className="text-[10px] text-gray-500 uppercase">INR</span>
-                                        </div>
-                                    </div>
-
-                                    <div className="relative h-2 bg-white/5 rounded-full mb-2">
-                                        <input
-                                            type="range"
-                                            min="0"
-                                            max="10000000"
-                                            step="5000"
-                                            value={capitalGains}
-                                            onChange={(e) => setCapitalGains(Number(e.target.value))}
-                                            className="absolute w-full h-full opacity-0 cursor-pointer z-10"
-                                        />
-                                        <div
-                                            className="absolute h-full bg-gradient-to-r from-emerald-600 to-emerald-400 rounded-full"
-                                            style={{ width: `${(capitalGains / 10000000) * 100}%` }}
-                                        />
-                                        <div
-                                            className="absolute h-4 w-4 bg-white rounded-full shadow-lg top-1/2 -translate-y-1/2 -ml-2 pointer-events-none"
-                                            style={{ left: `${(capitalGains / 10000000) * 100}%` }}
-                                        />
-                                    </div>
-
-                                    <p className="text-[10px] text-gray-500 mt-2 leading-relaxed">
-                                        Approximate profit (Sale Price - Buy Price). Used to estimate tax impact.
-                                    </p>
-                                </div>
+                            <div className="mt-auto pt-8">
+                                <button
+                                    onClick={handleCalculate}
+                                    className="w-full bg-gold-muted hover:bg-gold-bright text-black font-bold py-4 px-6 rounded-none uppercase tracking-widest transition-all duration-300"
+                                >
+                                    Calculate Savings
+                                </button>
                             </div>
                         </div>
                     </motion.div>
 
-                    {/* RESULTS PANEL */}
+                    {/* RESULTS / GUIDE PANEL */}
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.4 }}
-                        className="lg:col-span-7 space-y-6"
+                        className="lg:col-span-7 flex flex-col"
                     >
-                        {calculation && (
-                            <div className="glass-panel rounded-3xl p-8 border border-white/5 bg-[#0A0A0A] shadow-2xl relative overflow-hidden flex flex-col h-full">
-                                {/* Header: Net Benefit */}
-                                <div className="text-center mb-10">
-                                    <p className="text-sm font-bold uppercase tracking-widest text-gray-500 mb-2">
-                                        {calculation.netBenefit >= 0 ? 'Potential Savings' : 'Net Cost'}
-                                    </p>
-                                    <div className={`text-5xl md:text-6xl font-mono font-bold tracking-tight ${calculation.netBenefit >= 0 ? 'text-emerald-400' : 'text-orange-400'}`}>
-                                        {formatCurrency(Math.abs(calculation.netBenefit))}
-                                    </div>
-                                    <p className="text-sm text-gray-400 mt-3">
-                                        {calculation.netBenefit >= 0
-                                            ? 'saved by borrowing instead of selling'
-                                            : 'additional cost compared to selling'}
-                                    </p>
-                                </div>
-
-                                {/* Body: Comparison */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-                                    {/* Cost of Selling */}
-                                    <div className="bg-red-500/5 rounded-2xl p-6 border border-red-500/10">
-                                        <div className="flex items-center gap-2 mb-4">
-                                            <div className="w-2 h-2 rounded-full bg-red-500" />
-                                            <span className="text-xs font-bold uppercase tracking-widest text-red-400">Cost of Selling</span>
-                                        </div>
-                                        <p className="text-3xl font-mono font-bold text-white mb-1">{formatCurrency(calculation.taxPayable)}</p>
-                                        <p className="text-xs text-gray-500">Tax Payable (31.2%)</p>
-                                    </div>
-
-                                    {/* Cost of Borrowing */}
-                                    <div className="bg-gold-muted/5 rounded-2xl p-6 border border-gold-muted/10">
-                                        <div className="flex items-center gap-2 mb-4">
-                                            <div className="w-2 h-2 rounded-full bg-gold-muted" />
-                                            <span className="text-xs font-bold uppercase tracking-widest text-gold-muted">Cost of Borrowing</span>
-                                        </div>
-                                        <p className="text-3xl font-mono font-bold text-white mb-1">{formatCurrency(calculation.totalInterest)}</p>
-                                        <p className="text-xs text-gray-500">Total Interest ({interestRate}%)</p>
-                                    </div>
-                                </div>
-
-                                {/* Footer: Key Metrics */}
-                                <div className="mt-auto pt-8 border-t border-white/5 grid grid-cols-2 gap-8">
-                                    <div>
-                                        <p className="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Collateral Required</p>
-                                        <p className="text-xl font-bold text-white">{calculation.collateralRequiredBTC.toFixed(4)} BTC</p>
-                                        <p className="text-xs text-gray-600">≈ {formatCurrency(calculation.collateralRequired)}</p>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Liquidation Price</p>
-                                        <p className="text-xl font-bold text-red-400">{formatCurrency(calculation.liquidationPrice)}</p>
-                                        <p className="text-xs text-gray-600">Safe until BTC drops to this</p>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
+                        <div className="glass-panel rounded-3xl p-8 border border-white/5 bg-[#0A0A0A] shadow-2xl relative overflow-hidden h-full">
+                            {!showResults ? (
+                                <CalculatorGuide />
+                            ) : (
+                                calculation && (
+                                    <CalculatorResults
+                                        calculation={calculation}
+                                        onShowGuide={() => setShowResults(false)}
+                                    />
+                                )
+                            )}
+                        </div>
                     </motion.div>
                 </div>
             </div>
