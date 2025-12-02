@@ -97,7 +97,7 @@ export default async function handler(request, response) {
         await dbConnect();
     } catch (dbError) {
         console.error('Database Connection Failed:', dbError);
-        return response.status(500).json({ success: false, message: 'Database connection failed' });
+        return response.status(500).json({ success: false, message: 'Database connection failed: ' + dbError.message });
     }
 
     if (method === 'POST') {
