@@ -63,7 +63,7 @@ export function WaitlistForm() {
       setFormData({
         name: '',
         email: '',
-        phone: '',
+        phone: '+91 ',
         amount: '',
         term: '',
         notes: '',
@@ -129,7 +129,7 @@ export function WaitlistForm() {
                 value={formData.phone}
                 onChange={handleInputChange}
                 label="Phone Number"
-                placeholder="+91 98765 43210"
+                placeholder="98765 43210"
                 required
                 icon={<Phone size={18} />}
               />

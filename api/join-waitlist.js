@@ -45,10 +45,10 @@ const WaitlistSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: [true, 'Please provide an email'],
         unique: true,
         trim: true,
         lowercase: true,
+        sparse: true, // Allows multiple null values
         match: [
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
             'Please fill a valid email address',
@@ -56,6 +56,7 @@ const WaitlistSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
+        required: [true, 'Please provide a phone number'],
         trim: true,
     },
     amount: {
@@ -103,14 +104,16 @@ export default async function handler(request, response) {
         try {
             const { name, email, phone, amount, term, notes } = request.body;
 
-            if (!email || !name || !amount || !term) {
+            if (!name || !phone || !amount || !term) {
                 return response.status(400).json({ success: false, message: 'Please fill in all required fields' });
             }
 
-            // Check if email already exists
-            const existingUser = await Waitlist.findOne({ email });
-            if (existingUser) {
-                return response.status(200).json({ success: true, message: 'You are already on the waitlist!' });
+            // Check if email already exists (only if email is provided)
+            if (email) {
+                const existingUser = await Waitlist.findOne({ email });
+                if (existingUser) {
+                    return response.status(200).json({ success: true, message: 'You are already on the waitlist!' });
+                }
             }
 
             const newEntry = await Waitlist.create({
