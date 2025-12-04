@@ -74,28 +74,27 @@ export default async function handler(req, res) {
         });
 
         try {
-            await newEntry.save();
-        } catch (saveError) {
-            console.warn('Mongoose save failed, trying native insertOne:', saveError.message);
-            // Fallback for databases that might not support the specific Mongoose insert command (e.g. some Cosmos DB versions)
-            if (mongoose.connection.db) {
-                await mongoose.connection.db.collection('waitlists').insertOne({
-                    name,
-                    email,
-                    phone,
-                    amount,
-                    term,
-                    notes,
-                    createdAt: new Date(),
-                });
-            } else {
-                throw saveError;
+            // Directly use the native MongoDB driver to bypass Mongoose's command selection issues
+            // This avoids "command insert not found" errors on Cosmos DB
+            if (!mongoose.connection.db) {
+                throw new Error('Database connection not established');
             }
-        }
 
-        res.status(201).json({ message: 'Successfully joined waitlist' });
-    } catch (error) {
-        console.error('Waitlist API Error:', error);
-        res.status(500).json({ message: `Internal server error: ${error.message}`, error: error.message });
+            const collection = mongoose.connection.db.collection('waitlists');
+
+            await collection.insertOne({
+                name,
+                email,
+                phone,
+                amount,
+                term,
+                notes,
+                createdAt: new Date(),
+            });
+
+            res.status(201).json({ message: 'Successfully joined waitlist' });
+        } catch (error) {
+            console.error('Waitlist API Error:', error);
+            res.status(500).json({ message: `Internal server error: ${error.message}`, error: error.message });
+        }
     }
-}
