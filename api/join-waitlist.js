@@ -78,6 +78,6 @@ export default async function handler(req, res) {
         res.status(201).json({ message: 'Successfully joined waitlist' });
     } catch (error) {
         console.error('Waitlist API Error:', error);
-        res.status(500).json({ message: 'Internal server error', error: error.message });
+        res.status(500).json({ message: `Internal server error: ${error.message}`, error: error.message });
     }
 }
