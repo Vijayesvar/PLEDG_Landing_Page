@@ -35,7 +35,7 @@ export function CalculatorResults({ calculation, onShowGuide }: CalculatorResult
             <div className="bg-gradient-to-br from-gold-muted/10 to-transparent border border-gold-muted/20 rounded-3xl p-8 mb-6 relative overflow-hidden">
                 <div className="relative z-10">
                     <p className="text-xs font-bold uppercase tracking-widest text-gold-muted mb-2">Net Benefit</p>
-                    <div className="text-5xl md:text-6xl font-serif font-bold text-white mb-2">
+                    <div className="text-4xl md:text-6xl font-serif font-bold text-white mb-2">
                         {formatCurrency(calculation.netBenefit)}
                     </div>
                     <p className="text-gray-400 text-sm">
@@ -50,7 +50,7 @@ export function CalculatorResults({ calculation, onShowGuide }: CalculatorResult
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-3 gap-4 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
                 <div className="bg-white/5 rounded-xl p-4 border border-white/5">
                     <p className="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Collateral Required</p>
                     <p className="text-lg font-bold text-white">{formatCurrency(calculation.collateralRequired)}</p>
@@ -68,7 +68,7 @@ export function CalculatorResults({ calculation, onShowGuide }: CalculatorResult
             {/* Risk Analysis */}
             <div>
                 <h4 className="text-sm font-serif text-gray-400 mb-4 uppercase tracking-widest">Risk Analysis</h4>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="border border-orange-500/20 bg-orange-500/5 rounded-xl p-4">
                         <div className="flex items-center gap-2 mb-2">
                             <AlertTriangle size={14} className="text-orange-500" />
