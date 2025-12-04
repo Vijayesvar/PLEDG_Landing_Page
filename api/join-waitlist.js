@@ -73,7 +73,25 @@ export default async function handler(req, res) {
             notes,
         });
 
-        await newEntry.save();
+        try {
+            await newEntry.save();
+        } catch (saveError) {
+            console.warn('Mongoose save failed, trying native insertOne:', saveError.message);
+            // Fallback for databases that might not support the specific Mongoose insert command (e.g. some Cosmos DB versions)
+            if (mongoose.connection.db) {
+                await mongoose.connection.db.collection('waitlists').insertOne({
+                    name,
+                    email,
+                    phone,
+                    amount,
+                    term,
+                    notes,
+                    createdAt: new Date(),
+                });
+            } else {
+                throw saveError;
+            }
+        }
 
         res.status(201).json({ message: 'Successfully joined waitlist' });
     } catch (error) {
