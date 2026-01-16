@@ -64,6 +64,8 @@ export default async function handler(req, res) {
             return res.status(400).json({ message: 'Missing required fields' });
         }
 
+        // We use native driver for insert, so this model instance isn't strictly needed for saving, 
+        // but good for validation if we were using it.
         const newEntry = new Waitlist({
             name,
             email,
@@ -97,4 +99,8 @@ export default async function handler(req, res) {
             console.error('Waitlist API Error:', error);
             res.status(500).json({ message: `Internal server error: ${error.message}`, error: error.message });
         }
+    } catch (error) {
+        console.error('General API Error:', error);
+        res.status(500).json({ message: `Internal server error: ${error.message}`, error: error.message });
     }
+}

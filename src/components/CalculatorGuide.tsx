@@ -22,7 +22,7 @@ export function CalculatorGuide() {
                 <GuideStep
                     icon={<HelpCircle size={20} />}
                     title="Review Loan Terms"
-                    description="Adjust the loan tenure and interest rate. Pledg offers competitive rates starting from 13.5% APR."
+                    description="Adjust the loan tenure and interest rate. Pledg offers competitive rates starting from 14.5% APR."
                 />
                 <GuideStep
                     icon={<ArrowRight size={20} />}
