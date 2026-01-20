@@ -32,7 +32,7 @@ export function FAQ({ faqs: propFaqs }: FAQProps) {
     },
     {
       question: 'How is my Bitcoin stored? Who holds the keys?',
-      answer: 'Your Bitcoin is secured by BitGo, a qualified institutional custodian. Pledg does NOT hold your private keys. Your assets are held in a segregated wallet (never commingled) and protected by Multi-Party Computation (MPC) technology. You are not trusting us; you are trusting the industry standard.',
+      answer: 'Your Bitcoin is secured by BitGo (Qualified Custodian) in 100% cold storage with $250M insurance. Crucially, we ensure **No Rehypothecation**—your assets are never lent out. You will receive a dedicated wallet address to verify your Bitcoin on-chain, 24/7.',
     },
     {
       question: 'Can I top-up or add more collateral?',

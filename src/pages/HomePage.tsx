@@ -258,23 +258,23 @@ export function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <EditorialCard className="text-center p-8 hover:border-gold-muted/30 transition-colors">
               <Shield className="w-12 h-12 text-gold-muted mx-auto mb-6" strokeWidth={1.5} />
-              <h3 className="text-xl font-bold text-white mb-3">MPC Technology</h3>
+              <h3 className="text-xl font-bold text-white mb-3">$250M Insurance</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Multi-Party Computation ensures no single point of failure. Private keys are split and never reconstructed.
+                Your assets are backed by a $250 Million insurance policy against theft and loss, provided by Lloyd's of London.
               </p>
             </EditorialCard>
             <EditorialCard className="text-center p-8 hover:border-gold-muted/30 transition-colors">
               <Lock className="w-12 h-12 text-gold-muted mx-auto mb-6" strokeWidth={1.5} />
-              <h3 className="text-xl font-bold text-white mb-3">BitGo Custody</h3>
+              <h3 className="text-xl font-bold text-white mb-3">No Rehypothecation</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                We partner with BitGo for institutional-grade qualified custody, ensuring your assets are protected by the industry leader.
+                Your Bitcoin is never lent out or traded. It sits in a segregated vault which you can verify on-chain 24/7.
               </p>
             </EditorialCard>
             <EditorialCard className="text-center p-8 hover:border-gold-muted/30 transition-colors">
               <CheckCircle className="w-12 h-12 text-gold-muted mx-auto mb-6" strokeWidth={1.5} />
-              <h3 className="text-xl font-bold text-white mb-3">Regular Audits</h3>
+              <h3 className="text-xl font-bold text-white mb-3">100% Cold Storage</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Continuous security assessments and real-time monitoring by industry-leading security firms.
+                Assets are held by BitGo Trust (Qualified Custodian) in air-gapped cold wallets, isolated from online threats.
               </p>
             </EditorialCard>
           </div>

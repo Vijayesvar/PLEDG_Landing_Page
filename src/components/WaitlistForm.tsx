@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mail, User, Phone, DollarSign, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react'
+import { Mail, User, Phone, IndianRupee, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react'
 import { PremiumButton } from './PremiumButton'
 import { EditorialInput } from './EditorialInput'
 import { EditorialCard } from './EditorialCard'
@@ -140,7 +140,7 @@ export function WaitlistForm() {
                 label="Desired Loan Amount"
                 placeholder="₹1,00,000"
                 required
-                icon={<DollarSign size={18} />}
+                icon={<IndianRupee size={18} />}
               />
             </div>
 
